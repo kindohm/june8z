@@ -1,0 +1,47 @@
+class Scene3b extends Scene3 {
+
+  Scene3b() {
+    name = "scene3b";
+    red1 = 255; 
+    green1 = 255; 
+    blue1 = 0;
+    red2 = 255; 
+    green2 = 0; 
+    blue2 = 255;
+  }
+
+  void init(String oldSceneName) {
+    if (oldSceneName != "scene3b") {
+      cam.reset(0);
+    }
+  }
+
+  void drawShape1(float sizeX, float sizeY, float sizeZ) {  
+    ellipse(sizeX, sizeY, 20,20);
+  }
+
+  void drawShape2(float sizeX, float sizeY, float sizeZ) {
+    float x = sizeX;
+    float y = sizeY;
+
+    beginShape();
+
+    vertex(-x, y, 0);
+    vertex( x, y, 0);
+    vertex(   0, -y, 0);
+
+    vertex( x, y, 0);
+    vertex( x, y, 0);
+    vertex(   0, -y, 0);
+
+    vertex( x, y, 0);
+    vertex(-x, y, 0);
+    vertex(   0, -y, 0);
+
+    vertex(-x, y, 0);
+    vertex(-x, y, 0);
+    vertex(0, -y, 0);    
+
+    endShape();
+  }
+}
