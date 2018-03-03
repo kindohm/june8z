@@ -20,6 +20,23 @@ import TidalProc
 (d8,t8) <- superDirtSetters getNow
 (d9,t9) <- superDirtSetters getNow
 
+(midicmd, midicmd_p) = pS "midicmd" (Nothing)
+(midichan, midichan_p) = pF "midichan" (Nothing)
+(progNum, progNum_p) = pF "progNum" (Nothing)
+(val, val_p) = pF "val" (Nothing)
+(uid, uid_p) = pF "uid" (Nothing)
+(array, array_p) = pF "array" (Nothing)
+(frames, frames_p) = pF "frames" (Nothing)
+(seconds, seconds_p) = pF "seconds" (Nothing)
+(minutes, minutes_p) = pF "minutes" (Nothing)
+(hours, hours_p) = pF "hours" (Nothing)
+(frameRate, frameRate_p) = pF "frameRate" (Nothing)
+(songPtr, songPtr_p) = pF "songPtr" (Nothing)
+(ctlNum, ctlNum_p) = pF "ctlNum" (Nothing)
+(control, control_p) = pF "control" (Nothing)
+(ccn, ccn_p) = pI "control" (Nothing)
+(ccv, ccv_p) = pI "control" (Nothing)
+
 vis <- procStream
 
 let bps x = cps (x/2)

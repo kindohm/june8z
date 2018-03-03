@@ -8,7 +8,7 @@ Scene[] scenesArray;
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "scene5b";
+String sceneName = "scene7";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -23,7 +23,7 @@ void setup() {
 
   scenesHash = new HashMap<String, Scene>();
 
-  scenesArray = new Scene[12];
+  scenesArray = new Scene[13];
   scenesArray[0] = new Scene1();
   scenesArray[1]= new Scene1b();
   scenesArray[2] = new Scene2();
@@ -36,6 +36,7 @@ void setup() {
   scenesArray[9] = new Scene5b();
   scenesArray[10] = new Scene6();
   scenesArray[11] = new Scene6b();
+  scenesArray[12] = new Scene7();
 
   for (int i = 0; i < scenesArray.length; i++) {
     scenesHash.put(scenesArray[i].getName(), scenesArray[i]);
