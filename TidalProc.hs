@@ -28,9 +28,15 @@ module TidalProc where
     preamble = []
   }
 
+--  procStream = do
+--    s <- makeConnection "127.0.0.1" port procSlang
+--    stream (Backend s $ (\_ _ _ -> return ())) procShape
+
   procStream = do
-    s <- makeConnection "127.0.0.1" port procSlang
+    s <- makeConnection "10.0.0.24" port procSlang
     stream (Backend s $ (\_ _ _ -> return ())) procShape
+
+
 
   hit = makeF procShape "hit"
   view = makeS procShape "view"
