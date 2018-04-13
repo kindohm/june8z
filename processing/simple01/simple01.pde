@@ -8,7 +8,7 @@ Scene[] scenesArray;
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "scene7";
+String sceneName = "scene3";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
