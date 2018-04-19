@@ -8,7 +8,7 @@ Scene[] scenesArray;
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "scene7b";
+String sceneName = "scene9b";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -16,14 +16,14 @@ PeasyCam cam;
 float oscA, oscB, oscC, oscD, oscHit, oscFade;
 
 void setup() {
-  // fullScreen(P3D);
-  size(960, 800, P3D);
+  fullScreen(P3D);
+  //size(960, 800, P3D);
 
   cam = new PeasyCam(this, 0, 0, 0, 500);
 
   scenesHash = new HashMap<String, Scene>();
 
-  scenesArray = new Scene[14];
+  scenesArray = new Scene[18];
   scenesArray[0] = new Scene1();
   scenesArray[1]= new Scene1b();
   scenesArray[2] = new Scene2();
@@ -38,6 +38,10 @@ void setup() {
   scenesArray[11] = new Scene6b();
   scenesArray[12] = new Scene7();
   scenesArray[13] = new Scene7b();
+  scenesArray[14] = new Scene8();
+  scenesArray[15] = new Scene8b();
+  scenesArray[16] = new Scene9();
+  scenesArray[17] = new Scene9b();
 
   for (int i = 0; i < scenesArray.length; i++) {
     scenesHash.put(scenesArray[i].getName(), scenesArray[i]);

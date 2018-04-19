@@ -39,7 +39,7 @@ public class Scene7 extends Scene {
       reset();
     }
 
-    fade = random(0, 0.5);
+    //fade = random(0, 0.5);
 
     Node lastNode = null;
 
