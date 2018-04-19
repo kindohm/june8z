@@ -1,22 +1,24 @@
-public static class Defaults {
+public static class Defaults7b {
   public static float baseScale = 50;
 }
 
-public class Scene7 extends Scene {
+public class Scene7b extends Scene {
 
   Node[] nodes;
   int count;  
-  int max = 25;
+  int max = 50;
+  float maxHorizDim = 300;
+  float maxVertDim = 200;
   float halfPi = PI/2;
   float negHalfPi = -PI/2;
   float maxVel = 2.5;
   float maxRotVel = PI*0.01;
-  
-  Scene7() {
+
+  Scene7b() {
   }
 
   String getName() {
-    return "scene7";
+    return "scene7b";
   }
 
   void reset() {
@@ -41,34 +43,26 @@ public class Scene7 extends Scene {
 
     fade = random(0, 0.5);
 
-    Node lastNode = null;
-
-    if (count > 0) {
-      lastNode = nodes[count-1];
-    }
-
     Node newNode = new Node();
     newNode.high = hitVal > 0.5;
     newNode.fadeRate = fade;
-    newNode.velocity = new PVector(random(-maxVel,maxVel) * a, random(-maxVel,maxVel) * a, random(-maxVel,maxVel) * a);
+    newNode.velocity = new PVector(random(-maxVel, maxVel) * a, random(-maxVel, maxVel) * a, random(-maxVel, maxVel) * a);
     newNode.rotVelocity = new PVector(random(-maxRotVel,maxRotVel) * b, random(-maxRotVel,maxRotVel) * b, random(-maxRotVel,maxRotVel) * b);
-    
+
     if (newNode.high) {
       newNode.nodeColor = color(255, random(0, 255), random(0, 255));
     } else {
       newNode.nodeColor = color(random(0, 255), random(0, 255), 255);
     }
-    
-    if (lastNode != null) {
-      newNode.rotateX = random(-1.5, 1.5);
-      newNode.rotateY = random(-1.5, 1.5);
-      newNode.rotateZ = random(-1.5, 1.5);
-      newNode.x = (lastNode.x + lastNode.scale/2);
-      newNode.y = (lastNode.y + lastNode.scale/2* randomSignum()) ;
-      newNode.z = (lastNode.z + lastNode.scale/2* randomSignum()) ;
-      newNode.scale = random(Defaults.baseScale*0.25, Defaults.baseScale);
-      newNode.halfScale = newNode.scale/2;
-    }
+
+    newNode.rotateX = random(-1.5, 1.5);
+    newNode.rotateY = random(-1.5, 1.5);
+    newNode.rotateZ = random(-1.5, 1.5);
+    newNode.x = random(-maxHorizDim, maxHorizDim);
+    newNode.y = random(-maxVertDim, maxVertDim);
+    newNode.z = random(-maxHorizDim, maxHorizDim);
+    newNode.scale = random(Defaults.baseScale*0.25, Defaults.baseScale);
+    newNode.halfScale = newNode.scale/2;
 
     nodes[count] = newNode;
     count++;
@@ -87,39 +81,26 @@ public class Scene7 extends Scene {
     directionalLight(255, 255, 255, 0.15, -0.5, -0.7);
     directionalLight(255, 255, 255, -0.3, 0.25, 0.8);
     ambientLight(55, 55, 55);
-    strokeWeight(0);
-    //stroke(255, 255, 255);
 
     if (nodes[0] == null) return;
 
-    computeNode(nodes[0]);
+    computeNode(nodes[0], null);
 
     for (int i = 1; i < count; i++) {
       Node node = nodes[i];
-      computeNode(node);
+      computeNode(node, nodes[i-1]);
     }
   }
 
-  void computeNode(Node node) {
+  void computeNode(Node node, Node prevNode) {
     if (node.opacity > 0.25) {
       stroke(255, 255, 255, node.opacity);
       fill(node.nodeColor, node.opacity);
 
+      strokeWeight(0);
+      //stroke(255, 255, 255);
 
       drawObject(node);
-
-      rotateY(halfPi);
-      drawObject(node);
-
-      rotateY(halfPi);
-      drawObject(node);
-
-      rotateY(halfPi);
-      drawObject(node);
-
-      rotateY(negHalfPi);
-      rotateY(negHalfPi);
-      rotateY(negHalfPi);
 
       node.opacity *= (1 - node.fadeRate * 0.04);
       node.x += node.velocity.x;
@@ -128,9 +109,15 @@ public class Scene7 extends Scene {
       node.rotateX += node.rotVelocity.x;
       node.rotateY += node.rotVelocity.y;
       node.rotateZ += node.rotVelocity.z;
+  
+      if (prevNode != null) {
+        strokeWeight(2);
+        stroke(node.nodeColor, node.opacity);
+        line(node.x, node.y, node.z, prevNode.x, prevNode.y, prevNode.z);
+      }
     }
   }
-  
+
   void drawObject(Node node) {
 
     translate(node.x, node.y, node.z);
@@ -147,22 +134,4 @@ public class Scene7 extends Scene {
     rotateX(-node.rotateX );
     translate(-node.x, -node.y, -node.z );
   }
-}
-
-public class Node {
-
-  public float x = 0;
-  public float y = 0;
-  public float z = 0;
-  public float scale = Defaults.baseScale;
-  public float halfScale = scale/2;
-  public float rotateX;
-  public float rotateY;
-  public float rotateZ;
-  public color nodeColor;
-  public float fadeRate = 0;
-  public float opacity = 255;
-  public boolean high;
-  public PVector velocity;
-  public PVector rotVelocity;
 }
