@@ -1,0 +1,21 @@
+cps 1.3
+
+do
+    let pat = "{1 0 0 0 0 1 1 1 1 1 1 1 0 0 0 0 0 0 0 0}%8"
+    let m p = density 8 $ p
+    let spaces = [2.5,2.3..0.25] ++ [0.25,0.45..2.5]
+    d1 $ 
+        (|+| note (shift $ choose [0,0,0,-12,-24])) $ (|+| note "5") $ gain pat # s "midi" # note "[0,-3,4,14]" # midichan "15"
+    d5 $ stack [
+        gain (inv <$> pat) # note "-60",
+        gain (pat) # note "-52",
+        gain (inv <$> pat) # note "-57",
+        slow 2 $ note "~ -58 [~ -58] ~" ] 
+        # s "midi" # midichan "0"
+    d2 $ (# control (scale 0 127 $ slow 30 sine)) $ density 8 $ s "midi" # midichan "15" # midicmd "control" # ctlNum 1
+    d3 $ (# control (scale 0 127 $ slow 29 sine)) $ density 8 $ s "midi" # midichan "15" # midicmd "control" # ctlNum 2
+    d4 $ (# control (scale 0 127 $ slow 28 sine)) $ density 8 $ s "midi" # midichan "15" # midicmd "control" # ctlNum 3
+    d6 $ (# control (scale 0 127 $ slow 31 sine)) $ density 8 $ s "midi" # midichan "15" # midicmd "control" # ctlNum 8
+    d7 $ (# control (scale 0 127 $ slow 32 sine)) $ density 8 $ s "midi" # midichan "15" # midicmd "control" # ctlNum 9
+
+    hush

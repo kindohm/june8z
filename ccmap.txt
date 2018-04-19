@@ -1,0 +1,9 @@
+1 x
+2 y
+3 z
+4 legato time
+5 ab
+6 ph width
+7 ph offset
+8 trem depth
+9 trem speed
