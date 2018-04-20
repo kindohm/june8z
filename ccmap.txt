@@ -7,3 +7,4 @@
 7 ph offset
 8 trem depth
 9 trem speed
+10 mix

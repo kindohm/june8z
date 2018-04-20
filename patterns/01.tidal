@@ -17,11 +17,11 @@ d1 $ stack [
         # midichan "14"
         # note "[{0 -12 0 12 -24}%1,{2 5 14 -10 9}%1, {4 16 11}%1]/16",
     -- bd
-    gtfo $ s "midi*4"
+    s "midi*4"
         # midichan "0"
         # note "-60",
     -- cp
-    gtfo $ s "~ midi/4"
+    s "~ midi/4"
         # midichan "0"
         # note "-57",
     -- swt
@@ -33,13 +33,22 @@ d1 $ stack [
     -- bdrev
     ctlNum "39*4" # midicmd "control" # s "midi" # midichan "0" # control (scale 0 1 $ slow 24 sine),
     -- scene
-    ctlNum "92*4" # midicmd "control" # s "midi" # midichan "0" # control "[1]/64",
+    ctlNum "92*4" # midicmd "control" # s "midi" # midichan "0" # control "[0]/64",
     ctlNum "1*4" # modbig 30,
     ctlNum "2*4" # modbig 31,
     ctlNum "3*4" # modbig 32,
     -- harmor ab
-    ctlNum "5*4" # control (scale 127 127 $ slow 31.1 sine) # midicmd "control" # s "midi" # midichan "14" ] # nudging
-    
+    ctlNum "5*4" # control (scale 0 1 $ slow 31.1 sine) # midicmd "control" # s "midi" # midichan "14" ] # nudging
+
+    vis $ (|+| nudge "0.15") $ shift $ hit "1*4" 
+        # view "[scene11]"
+        # a "0.5"
+        # b "0.5"
+        # c "0.4" -- (scale 0 1 $ slow 9 tri)
+        # d "0.5"
+        # fade "0.1"
+        # nudging
+
 hush
 
 d1 $ s "midi" # note "0" # midichan "14" 

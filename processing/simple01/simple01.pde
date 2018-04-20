@@ -1,4 +1,4 @@
-import java.util.Map;
+import java.util.Map; //<>//
 import peasy.*;
 import oscP5.*;
 import netP5.*;
@@ -23,7 +23,7 @@ void setup() {
 
   scenesHash = new HashMap<String, Scene>();
 
-  scenesArray = new Scene[20];
+  scenesArray = new Scene[18];
   scenesArray[0] = new Scene1();
   scenesArray[1]= new Scene1b();
   scenesArray[2] = new Scene2();
@@ -32,18 +32,16 @@ void setup() {
   scenesArray[5] = new Scene3b();
   scenesArray[6] = new Scene4();
   scenesArray[7] = new Scene4b();
-  scenesArray[8] = new Scene5();
-  scenesArray[9] = new Scene5b();
-  scenesArray[10] = new Scene6();
-  scenesArray[11] = new Scene6b();
-  scenesArray[12] = new Scene7();
-  scenesArray[13] = new Scene7b();
-  scenesArray[14] = new Scene8();
-  scenesArray[15] = new Scene8b();
-  scenesArray[16] = new Scene9();
-  scenesArray[17] = new Scene9b();
-  scenesArray[18] = new Scene10();
-  scenesArray[19] = new Scene11();
+  scenesArray[8] = new Scene6();
+  scenesArray[9] = new Scene6b();
+  scenesArray[10] = new Scene7();
+  scenesArray[11] = new Scene7b();
+  scenesArray[12] = new Scene8();
+  scenesArray[13] = new Scene8b();
+  scenesArray[14] = new Scene9();
+  scenesArray[15] = new Scene9b();
+  scenesArray[16] = new Scene10();
+  scenesArray[17] = new Scene11();
 
   for (int i = 0; i < scenesArray.length; i++) {
     scenesHash.put(scenesArray[i].getName(), scenesArray[i]);
@@ -56,22 +54,26 @@ void setup() {
 }
 
 void oscEvent(OscMessage msg) {
+  try {
+    if (msg.checkAddrPattern("/proc_osc")==true) {
 
-  if (msg.checkAddrPattern("/proc_osc")==true) {
+      oscHit = msg.get(1).floatValue();
+      sceneName = msg.get(2).stringValue();
+      oscFade = msg.get(3).floatValue();
+      oscA = msg.get(4).floatValue();
+      oscB = msg.get(5).floatValue();
+      oscC = msg.get(6).floatValue();
+      oscD = msg.get(7).floatValue();
+      oscE = msg.get(8).floatValue();
+      oscRed = msg.get(9).floatValue();
+      oscGreen = msg.get(10).floatValue();
+      oscBlue = msg.get(11).floatValue();
 
-    oscHit = msg.get(1).floatValue();
-    sceneName = msg.get(2).stringValue();
-    oscFade = msg.get(3).floatValue();
-    oscA = msg.get(4).floatValue();
-    oscB = msg.get(5).floatValue();
-    oscC = msg.get(6).floatValue();
-    oscD = msg.get(7).floatValue();
-    oscE = msg.get(8).floatValue();
-    oscRed = msg.get(9).floatValue();
-    oscGreen = msg.get(10).floatValue();
-    oscBlue = msg.get(11).floatValue();
-
-    doHitOsc();
+      doHitOsc();
+    }
+  }
+  catch(Exception err) {
+    println(err);
   }
 }
 

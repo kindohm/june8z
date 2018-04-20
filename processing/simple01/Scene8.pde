@@ -8,6 +8,7 @@ public class Scene8 extends Scene {
   int minCols = 1;
   float cellHeight, cellWidth;
   boolean[][] cells;
+  boolean[][] mahCells;
   float opacity = 255;
   float fadeAmount;
   boolean high;
@@ -48,14 +49,14 @@ public class Scene8 extends Scene {
     float fade = data.oscFade;
 
     high = hitVal > 0.5;
-    c = random(0, 1);
+    //c = random(0, 1);
     cols = int(map(a, 0, 1, minCols, maxCols));
     rows = int(map(b, 0, 1, minRows, maxRows));
     cellHeight = height / (rows * 0.9);
     cellWidth = width / (cols * 0.9);
 
-    fade = random(0, 1);
-    d = random(0, 1);
+    //fade = random(0, 1);
+    //d = random(0, 1);
     reconfigure(c);
     opacity = 255;
     fadeAmount = fade;
@@ -73,12 +74,14 @@ public class Scene8 extends Scene {
     }
     strokeWeight(0);
 
+    mahCells = cells.clone();
+    
     rotation += rotAmount;
 
-    for (int c = 0; c < cols; c++) {
-      for (int r = 0; r < rows; r++) {
-
-        boolean val = cells[c][r];
+    for (int c = 0; c < mahCells.length; c++) {
+      for (int r = 0; r < mahCells[c].length; r++) {
+       
+        boolean val = mahCells[c][r];
         if (val) {
           translate(c*cellWidth, r * cellHeight);
           rotate(rotation);
@@ -91,7 +94,7 @@ public class Scene8 extends Scene {
 
     postDraw2d();
 
-    opacity *= (1 - fadeAmount * 0.08);
+    opacity -= (1 - fadeAmount) * 40;
   }
 
   void drawThing() {
