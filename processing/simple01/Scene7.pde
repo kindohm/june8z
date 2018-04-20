@@ -11,7 +11,7 @@ public class Scene7 extends Scene {
   float negHalfPi = -PI/2;
   float maxVel = 2.5;
   float maxRotVel = PI*0.01;
-  
+
   Scene7() {
   }
 
@@ -34,7 +34,12 @@ public class Scene7 extends Scene {
     return (int) random(2) * 2 - 1;
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float b = data.oscB;
+    float fade = data.oscFade;
+
     if (nodes[nodes.length -1] != null) {
       reset();
     }
@@ -50,15 +55,15 @@ public class Scene7 extends Scene {
     Node newNode = new Node();
     newNode.high = hitVal > 0.5;
     newNode.fadeRate = fade;
-    newNode.velocity = new PVector(random(-maxVel,maxVel) * a, random(-maxVel,maxVel) * a, random(-maxVel,maxVel) * a);
-    newNode.rotVelocity = new PVector(random(-maxRotVel,maxRotVel) * b, random(-maxRotVel,maxRotVel) * b, random(-maxRotVel,maxRotVel) * b);
-    
+    newNode.velocity = new PVector(random(-maxVel, maxVel) * a, random(-maxVel, maxVel) * a, random(-maxVel, maxVel) * a);
+    newNode.rotVelocity = new PVector(random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b);
+
     if (newNode.high) {
       newNode.nodeColor = color(255, random(0, 255), random(0, 255));
     } else {
       newNode.nodeColor = color(random(0, 255), random(0, 255), 255);
     }
-    
+
     if (lastNode != null) {
       newNode.rotateX = random(-1.5, 1.5);
       newNode.rotateY = random(-1.5, 1.5);
@@ -130,7 +135,7 @@ public class Scene7 extends Scene {
       node.rotateZ += node.rotVelocity.z;
     }
   }
-  
+
   void drawObject(Node node) {
 
     translate(node.x, node.y, node.z);

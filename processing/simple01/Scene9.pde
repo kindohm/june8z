@@ -31,7 +31,11 @@ class Scene9 extends Scene {
     table = new Scene9Cell[cols][rows];
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
+
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float b = data.oscB;
 
     int newCols = int(map(a, 1, 0, minCols, maxCols));
     int newRows = int(map(b, 1, 0, minRows, maxRows));

@@ -8,12 +8,12 @@ Scene[] scenesArray;
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "scene9b";
+String sceneName = "scene10";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
 PeasyCam cam;
-float oscA, oscB, oscC, oscD, oscHit, oscFade;
+float oscA, oscB, oscC, oscD, oscE, oscRed, oscGreen, oscBlue, oscHit, oscFade;
 
 void setup() {
   fullScreen(P3D);
@@ -23,7 +23,7 @@ void setup() {
 
   scenesHash = new HashMap<String, Scene>();
 
-  scenesArray = new Scene[18];
+  scenesArray = new Scene[19];
   scenesArray[0] = new Scene1();
   scenesArray[1]= new Scene1b();
   scenesArray[2] = new Scene2();
@@ -42,6 +42,7 @@ void setup() {
   scenesArray[15] = new Scene8b();
   scenesArray[16] = new Scene9();
   scenesArray[17] = new Scene9b();
+  scenesArray[18] = new Scene10();
 
   for (int i = 0; i < scenesArray.length; i++) {
     scenesHash.put(scenesArray[i].getName(), scenesArray[i]);
@@ -54,7 +55,6 @@ void setup() {
 }
 
 void oscEvent(OscMessage msg) {
-  //msg.print();
 
   if (msg.checkAddrPattern("/proc_osc")==true) {
 
@@ -65,10 +65,11 @@ void oscEvent(OscMessage msg) {
     oscB = msg.get(5).floatValue();
     oscC = msg.get(6).floatValue();
     oscD = msg.get(7).floatValue();
+    oscE = msg.get(8).floatValue();
+    oscRed = msg.get(9).floatValue();
+    oscGreen = msg.get(10).floatValue();
+    oscBlue = msg.get(11).floatValue();
 
-    //msg.print();
-
-    //dirty = true;
     doHitOsc();
   }
 }
@@ -119,20 +120,21 @@ void doHit() {
   float a = map(mouseX, 0, width, 0, 1);
   float b = map(mouseY, 0, height, 0, 1);
   float d = map(mouseX, 0, width, 0, 1);
-  
+  float e = map(mouseY, 0, height, 0, 1);
+
   c = 0.4;
-  
+
   Scene scene = getScene();
   if (mouseButton == LEFT) {
-    scene.hit(1, a, b, c, d, 0.5);
+    scene.hit(HitData.Make(1, a, b, c, d, e, 0.5, 0, 0, 0));
   } else {
-    scene.hit(0, a, b, c, d, 0.5);
+    scene.hit(HitData.Make(0, a, b, c, d, e, 0.5, 0, 0, 0));
   }
 }
 
 void doHitOsc() {
   Scene scene = getScene();
-  scene.hit(oscHit, oscA, oscB, oscC, oscD, oscFade);
+  scene.hit(HitData.Make(oscHit, oscA, oscB, oscC, oscD, oscE, oscFade, oscRed, oscGreen, oscBlue));
 }
 
 
@@ -143,5 +145,33 @@ void mouseWheel(MouseEvent event) {
     currentMouseWheelCount = 0;
   } else if (currentMouseWheelCount > 100) {
     currentMouseWheelCount = 100;
+  }
+}
+
+public static class HitData {
+  public float oscHit;
+  public float oscA;
+  public float oscB;
+  public float oscC;
+  public float oscD;
+  public float oscE;
+  public float oscFade;
+  public float oscRed;
+  public float oscGreen;
+  public float oscBlue;
+
+  public static HitData Make(float hit, float a, float b, float c, float d, float e, float fade, float red, float green, float blue) {
+    HitData x = new HitData();
+    x.oscHit = hit;
+    x.oscA = a;
+    x.oscB = b;
+    x.oscC = c;
+    x.oscD = d;
+    x.oscE = e;
+    x.oscFade = fade;
+    x.oscRed = red;
+    x.oscGreen = green;
+    x.oscBlue = blue;
+    return x;
   }
 }

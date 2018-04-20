@@ -38,7 +38,15 @@ public class Scene8 extends Scene {
     }
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
+
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float b = data.oscB;
+    float c = data.oscC;
+    float d = data.oscD;
+    float fade = data.oscFade;
+
     high = hitVal > 0.5;
     c = random(0, 1);
     cols = int(map(a, 0, 1, minCols, maxCols));
@@ -122,7 +130,7 @@ public class Scene8b extends Scene8 {
 
   void drawThing() {
     textSize(cellHeight*0.75);
-    
+
     if (high) {
       text("111", 0, 0, cellWidth, cellHeight);
     } else {

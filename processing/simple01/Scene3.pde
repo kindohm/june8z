@@ -33,7 +33,15 @@ class Scene3 extends Scene {
     cam.reset(0);
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
+
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float b = data.oscB;
+    float c = data.oscC;
+    float d = data.oscD;
+    float fade = data.oscFade;
+
     reset = true;
 
     newCols = int(map(a, 0, 1, minCols, maxCols));

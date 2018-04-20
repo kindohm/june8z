@@ -44,7 +44,13 @@ class Scene2 extends Scene {
     }
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
+
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float b = data.oscB;
+    float c = data.oscC;
+    float d = data.oscD;
 
     reset = true;
 

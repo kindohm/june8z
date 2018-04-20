@@ -43,8 +43,11 @@ public class Scene6 extends Scene {
   void init(String lastScene) {
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
 
+    float hitVal = data.oscHit;
+    float fade = data.oscFade;
+    
     for (int col = 0; col < colCount; col++) {
       cells[currentRow][col] = random(minHeight, maxHeight);
       hits[currentRow][col] = hitVal > 0.5;

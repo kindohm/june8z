@@ -30,4 +30,4 @@ MIDIClient.list; // to check, which are there, you can query them
 ~dirt.soundLibrary.addMIDI(\midi, ~midiOut);
 
 
-~dirt.loadSoundFiles("C:\\Users\\kindohm\\studio\\tidal-samples\\live-2016\\*");
+// ~dirt.loadSoundFiles("C:\\Users\\kindohm\\studio\\tidal-samples\\live-2016\\*");

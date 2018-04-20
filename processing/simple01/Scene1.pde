@@ -30,8 +30,13 @@ class Scene1 extends Scene {
     table = new Scene1Cell[cols][rows];
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
 
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float b = data.oscB;
+    float fade = data.oscFade;    
+    
     stroke = 5;
     fadeRate = map(fade, 0, 1, 0, 10);
 

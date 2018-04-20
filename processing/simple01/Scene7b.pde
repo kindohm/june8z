@@ -36,7 +36,12 @@ public class Scene7b extends Scene {
     return (int) random(2) * 2 - 1;
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float b = data.oscB;
+    float fade = data.oscFade;
+
     if (nodes[nodes.length -1] != null) {
       reset();
     }
@@ -47,7 +52,7 @@ public class Scene7b extends Scene {
     newNode.high = hitVal > 0.5;
     newNode.fadeRate = fade;
     newNode.velocity = new PVector(random(-maxVel, maxVel) * a, random(-maxVel, maxVel) * a, random(-maxVel, maxVel) * a);
-    newNode.rotVelocity = new PVector(random(-maxRotVel,maxRotVel) * b, random(-maxRotVel,maxRotVel) * b, random(-maxRotVel,maxRotVel) * b);
+    newNode.rotVelocity = new PVector(random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b);
 
     if (newNode.high) {
       newNode.nodeColor = color(255, random(0, 255), random(0, 255));
@@ -109,7 +114,7 @@ public class Scene7b extends Scene {
       node.rotateX += node.rotVelocity.x;
       node.rotateY += node.rotVelocity.y;
       node.rotateZ += node.rotVelocity.z;
-  
+
       if (prevNode != null) {
         strokeWeight(2);
         stroke(node.nodeColor, node.opacity);

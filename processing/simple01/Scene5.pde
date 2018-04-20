@@ -21,8 +21,10 @@ public class Scene5 extends Scene {
     cam.rotateX(0.6);
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
-    
+  void hit(HitData data) {
+
+    float hitVal = data.oscHit;
+
     rotating = true;
     if (cellCount < maxCells) {
       cellCount++;
@@ -35,12 +37,12 @@ public class Scene5 extends Scene {
   void draw() {
     postDraw2d();
 
-    if (!high){
+    if (!high) {
       stroke(red1, green1, blue1);
-    }else{
+    } else {
       stroke(red2, green2, blue2);
     }
-    
+
     noFill();
 
     for (int row = -rows/2; row < rows/2; row++) {
@@ -73,10 +75,10 @@ public class Scene5 extends Scene {
       rotateZ(-currentRot);
     }
 
-    for (int row = -rows/2; row < rows/2; row++){
+    for (int row = -rows/2; row < rows/2; row++) {
       translate(0, 0, row*50);
       box(50);
-      translate(0,0,-row*50);
+      translate(0, 0, -row*50);
     }
 
     if (rotating) {
@@ -88,26 +90,24 @@ public class Scene5 extends Scene {
       currentRot = 0;
     }
   }
-  
-  void drawShape(float dim){
+
+  void drawShape(float dim) {
     box (dim, 0, dim);
   }
 }
 
-public class Scene5b extends Scene5{
- 
-    public Scene5b(){
-      red1 = 255; 
-      green1 = 255;
-      blue1 = 0; 
-      red2 = 0; 
-      green2 = 255; 
-      blue2 = 255;
+public class Scene5b extends Scene5 {
 
-    }
-  
-   String getName(){
-     return "scene5b";
-   }
-   
+  public Scene5b() {
+    red1 = 255; 
+    green1 = 255;
+    blue1 = 0; 
+    red2 = 0; 
+    green2 = 255; 
+    blue2 = 255;
+  }
+
+  String getName() {
+    return "scene5b";
+  }
 }

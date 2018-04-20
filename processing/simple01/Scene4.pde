@@ -1,5 +1,5 @@
-class Scene4b extends Scene4{
-  public Scene4b(){
+class Scene4b extends Scene4 {
+  public Scene4b() {
     red1 = 152;
     green1 = 36;
     blue1 = 198;
@@ -7,8 +7,8 @@ class Scene4b extends Scene4{
     green2 = 134;
     blue2 = 237;
   }
-  
-  String getName(){
+
+  String getName() {
     return "scene4b";
   }
 }
@@ -24,7 +24,7 @@ class Scene4 extends Scene {
   int centerX, centerY;
   int currentSquareSize = 0;
   float cellWidth, cellHeight;
-  
+
   int red2 = 255, green2 = 255, blue2 = 255;
   int red1 = 0, green1 = 255, blue1 = 255;
 
@@ -38,7 +38,11 @@ class Scene4 extends Scene {
     centerY = rows/2;
   }
 
-  void hit(float hitVal, float a, float b, float c, float d, float fade) {
+  void hit(HitData data) {
+
+    float hitVal = data.oscHit;
+    float a = data.oscA;
+    float fade = data.oscFade;
 
     int oldCols = cols;
     int oldRows = rows;
