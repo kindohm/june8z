@@ -1,5 +1,5 @@
-public class Scene6b extends Scene6 {
-  public Scene6b() {
+public class RainB extends Rain {
+  public RainB() {
     red1 = 22; 
     green1 = 122; 
     blue1 = 82; 
@@ -9,11 +9,11 @@ public class Scene6b extends Scene6 {
   }
 
   String getName() {
-    return "scene6b";
+    return "rainB";
   }
 }
 
-public class Scene6 extends Scene {
+public class Rain extends Scene {
 
   int colCount = 120;
   int maxRowCount = 40; 
@@ -31,13 +31,13 @@ public class Scene6 extends Scene {
 
   int red1 = 22, green1 = 82, blue1 = 122, red2 = 145, green2 = 110, blue2 = 84;
 
-  Scene6() {
+  Rain() {
     rectWidth = width/colCount;
     screenHeight = height;
   }
 
   String getName() {
-    return "scene6";
+    return "rain";
   }
 
   void init(String lastScene) {

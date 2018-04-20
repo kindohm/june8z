@@ -1,4 +1,4 @@
-public class Scene5 extends Scene {
+public class Carpet extends Scene {
 
   boolean rotating = false;
   float rotInc = PI*0.035;
@@ -12,7 +12,7 @@ public class Scene5 extends Scene {
   float red1 = 0, green1 = 255, blue1 = 0, red2 = 255, green2 = 0, blue2 = 255;
 
   String getName() {
-    return "scene5";
+    return "carpet";
   }
 
   void init(String lastScene) {
@@ -96,9 +96,9 @@ public class Scene5 extends Scene {
   }
 }
 
-public class Scene5b extends Scene5 {
+public class CarpetB extends Carpet {
 
-  public Scene5b() {
+  public CarpetB() {
     red1 = 255; 
     green1 = 255;
     blue1 = 0; 
@@ -108,6 +108,6 @@ public class Scene5b extends Scene5 {
   }
 
   String getName() {
-    return "scene5b";
+    return "carpetB";
   }
 }

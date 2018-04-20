@@ -2,7 +2,7 @@ public static class Defaults {
   public static float baseScale = 50;
 }
 
-public class Scene7 extends Scene {
+public class CubeFractal extends Scene {
 
   Node[] nodes;
   int count;  
@@ -11,12 +11,9 @@ public class Scene7 extends Scene {
   float negHalfPi = -PI/2;
   float maxVel = 2.5;
   float maxRotVel = PI*0.01;
-
-  Scene7() {
-  }
-
+  
   String getName() {
-    return "scene7";
+    return "cubeFractal";
   }
 
   void reset() {

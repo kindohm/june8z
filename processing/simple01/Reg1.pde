@@ -1,4 +1,4 @@
-class Scene1 extends Scene {
+class Reg1 extends Scene {
 
   int rows = 10;
   int cols = 40;
@@ -11,13 +11,13 @@ class Scene1 extends Scene {
   int red1 = 255, green1 = 0, blue1 = 255, red2 = 0, green2 = 255, blue2 = 255;
   Scene1Cell[][] table;
 
-  Scene1() {
-    name = "scene1";
+  Reg1() {
+    name = "reg1";
     buildTable();
   }
 
   void init(String oldSceneName) {
-    if (oldSceneName != "scene1b") {
+    if (oldSceneName != "reg1") {
       cam.reset(0);
     }
   }

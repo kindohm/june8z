@@ -1,5 +1,5 @@
-class Scene4b extends Scene4 {
-  public Scene4b() {
+class SpiralB extends Spiral {
+  public SpiralB() {
     red1 = 152;
     green1 = 36;
     blue1 = 198;
@@ -9,11 +9,11 @@ class Scene4b extends Scene4 {
   }
 
   String getName() {
-    return "scene4b";
+    return "spiralB";
   }
 }
 
-class Scene4 extends Scene {
+class Spiral extends Scene {
 
   int rows;
   int cols;
@@ -29,7 +29,7 @@ class Scene4 extends Scene {
   int red1 = 0, green1 = 255, blue1 = 255;
 
   String getName() {
-    return "scene4";
+    return "spiral";
   }
 
   void buildTable() {

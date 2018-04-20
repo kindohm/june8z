@@ -1,6 +1,6 @@
-class Scene2b extends Scene2 {
-  Scene2b() {
-    name = "scene2b";
+class CubeGridB extends CubeGrid {
+  CubeGridB() {
+    name = "cubeGridB";
     red1 = 50; 
     green1 = 100; 
     blue1 = 255;
@@ -10,7 +10,7 @@ class Scene2b extends Scene2 {
   }
 
   void init(String oldSceneName) {
-    if (oldSceneName != "scene2b"){
+    if (oldSceneName != "cubeGridB"){
         cam.reset(0);
     }
   }

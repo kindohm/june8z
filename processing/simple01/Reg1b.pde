@@ -1,6 +1,6 @@
-class Scene1b extends Scene1 {
-  Scene1b() {
-    name = "scene1b";
+class Reg1B extends Reg1 {
+  Reg1B() {
+    name = "reg1B";
     red1 = 255; 
     green1 = 0; 
     blue1 = 0;
@@ -10,7 +10,7 @@ class Scene1b extends Scene1 {
   }
 
   void init(String oldSceneName) {
-    if (oldSceneName != "scene1") {
+    if (oldSceneName != "reg1B") {
       cam.reset(0);
     }
   }

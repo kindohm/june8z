@@ -1,4 +1,4 @@
-class Scene2 extends Scene {
+class CubeGrid extends Scene {
 
   int rows = 5;
   int cols = 5;
@@ -18,13 +18,13 @@ class Scene2 extends Scene {
 
   Scene2Cell[][][] table;
 
-  Scene2() {
-    name = "scene2";
+  CubeGrid() {
+    name = "cubeGrid";
     buildTable();
   }
 
   void init(String oldSceneName) {
-    if (oldSceneName != "scene2b") {
+    if (oldSceneName != "cubeGrid") {
       cam.reset(0);
     }
   }

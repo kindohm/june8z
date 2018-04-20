@@ -1,4 +1,4 @@
-public class Scene10 extends Scene {
+public class Beziers extends Scene {
 
   ArrayList<Curve> curves = new ArrayList<Curve>();
   public float end = 600;
@@ -6,11 +6,8 @@ public class Scene10 extends Scene {
   public float acceleration = 0.01;
   ArrayList<Curve> deads = new ArrayList<Curve>();
 
-  Scene10() {
-  }
-
   String getName() {
-    return "scene10";
+    return "beziers";
   }
 
   void init(String lastScene) {
@@ -125,18 +122,7 @@ public class Curve {
     noFill();
     stroke(curveColor, opacity);
     bezierDetail(30);
-    bezier(anchor1.x, anchor1.y, anchor1.z, control1.x, control1.y, control1.z, control2.x, control2.y, control2.z, anchor2.x, anchor2.y, anchor2.z);
-
-    //strokeWeight(0);
-    //fill(0,255,0);
-    //translate(control1.x, control1.y, control1.z);
-    //box(5);
-    //translate(-control1.x, -control1.y, -control1.z);
-
-    //fill(255,255,0);
-    //translate(control2.x, control2.y, control2.z);
-    //box(5);
-    //translate(-control2.x, -control2.y, -control2.z);
+    bezier(anchor1.x, anchor1.y, anchor1.z, control1.x, control1.y, control1.z, control2.x, control2.y, control2.z, anchor2.x, anchor2.y, anchor2.z);    
   }
 
   public void update() {

@@ -1,4 +1,4 @@
-class Scene3 extends Scene {
+class VectorGrid extends Scene {
 
   int row, col, slot;
   int rows = 1;
@@ -25,8 +25,8 @@ class Scene3 extends Scene {
 
   int newCols, newRows, newSlots;
 
-  Scene3() {
-    name = "scene3";
+  VectorGrid() {
+    name = "vectorGrid";
   }
 
   void init(String oldSceneName) {

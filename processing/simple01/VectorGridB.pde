@@ -1,7 +1,7 @@
-class Scene3b extends Scene3 {
+class VectorGridB extends VectorGrid {
 
-  Scene3b() {
-    name = "scene3b";
+  VectorGridB() {
+    name = "vectorGridB";
     red1 = 255; 
     green1 = 255; 
     blue1 = 0;
@@ -11,7 +11,7 @@ class Scene3b extends Scene3 {
   }
 
   void init(String oldSceneName) {
-    if (oldSceneName != "scene3b") {
+    if (oldSceneName != "vectorGridB") {
       cam.reset(0);
     }
   }

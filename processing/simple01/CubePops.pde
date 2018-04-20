@@ -1,6 +1,6 @@
 public float cellSize = 50;
 
-public class Scene11 extends Scene {
+public class CubePops extends Scene {
 
   int rows = 15;
   int cols = 15;
@@ -8,12 +8,12 @@ public class Scene11 extends Scene {
   Unit[][] units;
   Unit[][] mahUnits;
 
-  Scene11() {
+  CubePops() {
     units = new Unit[cols][rows];
   }
 
   String getName() {
-    return "scene11";
+    return "cubePops";
   }
 
   void init(String lastScene) {
@@ -107,7 +107,7 @@ public class Unit {
     strokeWeight(0);
     translate(pos.x, pos.y, pos.z);
     box(size);
-    translate(-pos.x, -pos.y, -pos.z); //<>//
+    translate(-pos.x, -pos.y, -pos.z);
   }
 
   public void update() {

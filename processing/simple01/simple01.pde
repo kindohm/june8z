@@ -4,11 +4,12 @@ import oscP5.*;
 import netP5.*;
 
 HashMap<String, Scene> scenesHash;
-Scene[] scenesArray;
+//Scene[] scenesArray;
+ArrayList<Scene> scenesList = new ArrayList<Scene>();
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "scene11";
+String sceneName = "nodes";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -16,38 +17,39 @@ PeasyCam cam;
 float oscA, oscB, oscC, oscD, oscE, oscRed, oscGreen, oscBlue, oscHit, oscFade;
 
 void setup() {
-  fullScreen(P3D);
-  //size(960, 800, P3D);
+  //fullScreen(P3D);
+  size(960, 800, P3D);
 
   cam = new PeasyCam(this, 0, 0, 0, 500);
 
   scenesHash = new HashMap<String, Scene>();
 
-  scenesArray = new Scene[18];
-  scenesArray[0] = new Scene1();
-  scenesArray[1]= new Scene1b();
-  scenesArray[2] = new Scene2();
-  scenesArray[3] = new Scene2b();
-  scenesArray[4] = new Scene3();
-  scenesArray[5] = new Scene3b();
-  scenesArray[6] = new Scene4();
-  scenesArray[7] = new Scene4b();
-  scenesArray[8] = new Scene6();
-  scenesArray[9] = new Scene6b();
-  scenesArray[10] = new Scene7();
-  scenesArray[11] = new Scene7b();
-  scenesArray[12] = new Scene8();
-  scenesArray[13] = new Scene8b();
-  scenesArray[14] = new Scene9();
-  scenesArray[15] = new Scene9b();
-  scenesArray[16] = new Scene10();
-  scenesArray[17] = new Scene11();
+  scenesList.add(new Reg1());
+  scenesList.add(new Reg1B());
+  scenesList.add(new CubeGrid());
+  scenesList.add(new CubeGridB());
+  scenesList.add(new VectorGrid());
+  scenesList.add(new VectorGridB());
+  scenesList.add(new Spiral());
+  scenesList.add(new SpiralB());
+  scenesList.add(new Rain());
+  scenesList.add(new RainB());
+  scenesList.add(new CubeFractal());
+  scenesList.add(new Nodes());
+  scenesList.add(new Maze());
+  scenesList.add(new MazeB());
+  scenesList.add(new Reg2());
+  scenesList.add(new Reg2B());
+  scenesList.add(new Beziers());
+  scenesList.add(new CubePops());
+  scenesList.add(new Carpet());
+  scenesList.add(new CarpetB());
 
-  for (int i = 0; i < scenesArray.length; i++) {
-    scenesHash.put(scenesArray[i].getName(), scenesArray[i]);
+  for (int i = 0; i < scenesList.size(); i++) {
+    scenesHash.put(scenesList.get(i).getName(), scenesList.get(i));
   }
 
-  currentScene = scenesArray[0];
+  currentScene = scenesList.get(0);
 
   oscP5 = new OscP5(this, 5000);
   myRemoteLocation = new NetAddress("127.0.0.1", 5000);
@@ -104,12 +106,12 @@ void keyPressed() {
   if (key == CODED) {
     if (keyCode == RIGHT) {
       sceneIndex++;
-      if (sceneIndex >= scenesArray.length) sceneIndex = 0;      
-      currentScene = scenesArray[sceneIndex];
+      if (sceneIndex >= scenesList.size()) sceneIndex = 0;      
+      currentScene = scenesList.get(sceneIndex);// scenesArray[sceneIndex];
     } else if (keyCode == LEFT) {
       sceneIndex--;
-      if (sceneIndex < 0) sceneIndex = scenesArray.length - 1;
-      currentScene = scenesArray[sceneIndex];
+      if (sceneIndex < 0) sceneIndex = scenesList.size() - 1;
+      currentScene = scenesList.get(sceneIndex); // scenesArray[sceneIndex];
     }
   } else {
     if (key == ' ') {

@@ -1,4 +1,4 @@
-class Scene9 extends Scene {
+class Reg2 extends Scene {
 
   int rows = 10;
   int cols = 40;
@@ -10,15 +10,15 @@ class Scene9 extends Scene {
   Scene9Cell[][] table;
   PImage img1, img2;
 
-  Scene9() {
-    name = "scene9";
+  Reg2() {
+    name = "reg2";
     buildTable();
     img1 = loadImage("computer.jpg");
     img2 = loadImage("computer2.jpg");
   }
 
   void init(String oldSceneName) {
-    if (oldSceneName != "scene9") {
+    if (oldSceneName != "reg2") {
       cam.reset(0);
     }
   }
@@ -115,9 +115,9 @@ class Scene9Cell {
   }
 }
 
-public class Scene9b extends Scene9 {
-  Scene9b() {
-    name = "scene9b";
+public class Reg2B extends Reg2 {
+  Reg2B() {
+    name = "reg2B";
     buildTable();
     img1 = loadImage("cat1.jpg");
     img2 = loadImage("cat2.jpg");

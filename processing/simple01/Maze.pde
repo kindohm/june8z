@@ -1,4 +1,4 @@
-public class Scene8 extends Scene {
+public class Maze extends Scene {
 
   int rows = 50;
   int cols = 50;
@@ -14,7 +14,8 @@ public class Scene8 extends Scene {
   boolean high;
   float rotAmount = 0;
   float rotation = 0;
-  Scene8() {
+  
+  Maze() {
     cellHeight = height / (rows * 0.8);
     cellWidth = width / (cols * 0.8);
 
@@ -22,7 +23,7 @@ public class Scene8 extends Scene {
   }
 
   String getName() {
-    return "scene8";
+    return "maze";
   }
 
   void init(String lastScene) {
@@ -102,9 +103,9 @@ public class Scene8 extends Scene {
   }
 }
 
-public class Scene8b extends Scene8 {
+public class MazeB extends Maze {
 
-  Scene8b() {
+  MazeB() {
     cellHeight = height / (rows * 0.8);
     cellWidth = width / (cols * 0.8);
     reconfigure(0);
@@ -112,7 +113,7 @@ public class Scene8b extends Scene8 {
 
 
   String getName() {
-    return "scene8b";
+    return "mazeB";
   }
 
   void hit(float hitVal, float a, float b, float c, float d, float fade) {

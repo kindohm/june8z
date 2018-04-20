@@ -2,7 +2,7 @@ public static class Defaults7b {
   public static float baseScale = 50;
 }
 
-public class Scene7b extends Scene {
+public class Nodes extends Scene {
 
   Node[] nodes;
   int count;  
@@ -14,11 +14,8 @@ public class Scene7b extends Scene {
   float maxVel = 2.5;
   float maxRotVel = PI*0.01;
 
-  Scene7b() {
-  }
-
   String getName() {
-    return "scene7b";
+    return "nodes";
   }
 
   void reset() {
