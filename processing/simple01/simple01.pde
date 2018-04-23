@@ -9,7 +9,7 @@ ArrayList<Scene> scenesList = new ArrayList<Scene>();
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "nodes";
+String sceneName = "nudges";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -44,6 +44,7 @@ void setup() {
   scenesList.add(new CubePops());
   scenesList.add(new Carpet());
   scenesList.add(new CarpetB());
+  scenesList.add(new Nudges());
 
   for (int i = 0; i < scenesList.size(); i++) {
     scenesHash.put(scenesList.get(i).getName(), scenesList.get(i));
