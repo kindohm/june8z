@@ -40,13 +40,19 @@ d1 $ stack [
     -- harmor ab
     ctlNum "5*4" # control (scale 0 1 $ slow 31.1 sine) # midicmd "control" # s "midi" # midichan "14" ] # nudging
 
+let pos = a
+    rot = b
+    growth = c
+
     vis $ (|+| nudge "0.15") $ shift $ hit "1*4" 
-        # view "[scene11]"
-        # a "0.5"
-        # b "0.5"
-        # c "0.4" -- (scale 0 1 $ slow 9 tri)
-        # d "0.5"
-        # fade "0.1"
+        # view "[nudges]"
+        # pos (scale 0 0.01 $ slow 20 tri)
+        # rot (scale 0 0.01 $ slow 21 tri)
+        # growth (scale 0 0.9 $ slow 22 tri)
+        # fade "0.7"
+        # red (scale 0.1 1 $ slow 23 sine)
+        # green (scale 0.1 1 $ slow 24 sine)
+        # blue (scale 0.1 1 $ slow 25 sine)
         # nudging
 
 hush

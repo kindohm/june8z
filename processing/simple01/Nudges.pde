@@ -2,10 +2,10 @@ public class Nudges extends Scene {
 
   int rows = 15;
   int cols = 15;
-  float floor = 180;
+  float floor = 230;
   ArrayList<Nudge> units = new ArrayList<Nudge>();
   ArrayList<Nudge> deads = new ArrayList<Nudge>();
-  float extents = 100;
+  float extents = 200;
 
   Nudges() {
   }
@@ -19,27 +19,36 @@ public class Nudges extends Scene {
   }
 
   void hit(HitData data) {
-
+    
     float hitVal = data.oscHit;
-    float a = 1; //data.oscA;
-    float fade = 0.5;// data.oscFade;
-    float b = 0.1;
-    float c = 1;
+    
+    // random position scale and initial rotation amount
+    float a = data.oscA;
+    
+    // rotation scale
+    float b = data.oscB; //0.1;
+    
+    // growth 
+    float c = data.oscC;
+
+    float fade = data.oscFade;
 
     Nudge unit = new Nudge();
     unit.pos = new PVector(random(-extents, extents)*a, floor, random(-extents, extents)*a);
     unit.vel = new PVector(0, 0, 0);
-    unit.accel = new PVector(0, -0.015, 0);  
+    unit.accel = new PVector(0, -0.01, 0);  
     unit.fadeRate= fade;
     unit.initRotateY = random(-PI, PI)*a;
     unit.rotation = b * 0.1;
     unit.growth = c * 1.5;
 
+    unit.unitColor = color(data.oscRed * 255, data.oscGreen*255, data.oscBlue*255);
+
     if (hitVal > 0.5) {
       unit.high = true;
-      unit.unitColor = color(random(0, 1)*255, random(0, 1)*255, random(0, 1)*25);
+      //unit.unitColor = color(random(0, 1)*255, random(0, 1)*255, random(0, 1)*25);
     } else {
-      unit.unitColor = color(random(0, 1)*25, random(0, 1)*255, random(0, 1)*255);
+      //unit.unitColor = color(random(0, 1)*25, random(0, 1)*255, random(0, 1)*255);
     }
     units.add(unit);
 
@@ -48,7 +57,7 @@ public class Nudges extends Scene {
   }
 
   void doRotation() {
-    cam.rotateY(0.003);
+    //cam.rotateY(0.003);
   }
 
   void draw() {
@@ -93,7 +102,7 @@ public class Nudge {
   public color unitColor;
   public float fadeRate = 0.5;
   public float opacity = 255;
-  public float shapeWidth = 80;
+  public float shapeWidth = width/3; // 200;
   public float shapeDepth = 5;
   public float shapeHeight = 5;
   public float initRotateY = 0;
@@ -141,7 +150,7 @@ public class Nudge {
       opacity -= (1-fadeRate)*2.5;
     }
 
-    if (opacity <= 0.1) {
+    if (opacity <= 0.05) {
       dead = true;
     }
   }

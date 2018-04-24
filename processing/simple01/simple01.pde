@@ -17,8 +17,8 @@ PeasyCam cam;
 float oscA, oscB, oscC, oscD, oscE, oscRed, oscGreen, oscBlue, oscHit, oscFade;
 
 void setup() {
-  //fullScreen(P3D);
-  size(960, 800, P3D);
+  fullScreen(P3D);
+  //size(960, 800, P3D);
 
   cam = new PeasyCam(this, 0, 0, 0, 500);
 
