@@ -8,3 +8,7 @@
 8 trem depth
 9 trem speed
 10 mix
+11 harmonizer
+
+
+92 active scene
