@@ -1,7 +1,11 @@
 bps (230/120)
 
+-- done in all2. use `patch` to switch between scenes. 2 + 3.
+
 do
-    let patch = "11"
+    let midinudge = "0.2"
+    let patch = "[2 3]/8" -- 2 and 3
+    let kitpatch = "[0 3]/8" -- 0 and 3
     let timemod p = slow (discretise (1/3) $ shift' 100 $ choose [1,1.1..3]) $
                     spaceOut (map (1/) [1,1.25..4]) $
                     degradeBy 0.2 $
@@ -13,14 +17,22 @@ do
         whenmod 16 12 (|=| note "[-3,0]") $
         whenmod 12 8 (|=| note "[0,2,4]") $
         whenmod 8 4 (|=| note "[0,2]") $
-        gain "1(3,8)" # note "[0]" # sound "midi" # midichan patch
+        gain "1(3,8)" # note "[0]" # sound "midi" # midichan patch # nudge midinudge
     d2 $ timemod $ stack [
         ctlNum "5(3,8)" # control (shift' 301 $ choose [0,127]),
         ctlNum "1(3,8)" # control (scale 0 127 $ shift' 200 rand),
         ctlNum "2(3,8)" # control (scale 0 127 $ shift' 201 rand),
         ctlNum "3(3,8)" # control (scale 0 127 $ shift' 202 rand),
         ctlNum "11(3,8)" # control (scale 0 127 $ shift' 203 rand)
-        ] # s "midi" # midichan patch # midicmd "control"
-
+        ] # s "midi" # midichan patch # midicmd "control" # nudge midinudge
+    d3 $ timemod $ (|+| n kitpatch) $
+        stack [
+            n "0(3,8)",
+            n "2(3,8)",
+            n "1/2" 
+                # delayt (scale 0.001 0.1 $ slow 20 tri) 
+                # delayfb (scale 0.5 0.95 $ slow 21 tri) 
+                # delay (scale 0.4 0.8 $ slow 203 rand)] # s "likekit" # orbit "0"
+        
        
         hush
