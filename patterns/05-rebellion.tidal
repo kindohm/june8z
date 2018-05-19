@@ -1,0 +1,23 @@
+bps (145/120)
+
+do
+    let pat  = "{1       ~ ~ 1 ~ 1 ~ ~}%16"
+        cpp  = "{1       ~ ~ ~ ~ ~ ~ ~}%16"
+        chan = "4"
+        midinudge = "0.2"
+    d1 $ 
+      stack [
+        gtfo $ gain pat # n (discretise (1/4) $ irand 70) # s "rebsy" # cut 877,
+        gain (pat) # s "rebbd" # cut 1011,
+        slow 2 $ (|*| gain "1.05") $ gain cpp # s "rebcp" # cut 101,
+        gtfo $ whenmod 20 15 (gtfo) $ n "{0 0 1}%16" # s "rebch" # cut 200 # gain 0.8,
+        gtfo $ ((0.0625) <~) $ gain pat # s "rebtom"]
+    d2 $ (|*| gain "1.15") $ (|+| note "0") $ gain pat # note "[0,2,4]" # s "midi" # midichan chan # nudge midinudge
+    d3 $ stack [
+            gain pat # ctlNum "10" # control (scale 0 127 $ slow 33 tri),
+            gain pat # ctlNum "1" # control (scale 0 127 $ slow 34 tri),
+            gain pat # ctlNum "2" # control (scale 0 127 $ slow 35 tri),
+            gain pat # ctlNum "3" # control (scale 0 127 $ slow 36 tri)] 
+        # s "midi" # midichan chan # nudge midinudge # midicmd "control"
+
+    hush

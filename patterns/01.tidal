@@ -4,57 +4,43 @@ cps 1
 
 let modbig slowness = control (scale 0 127 $ slow slowness sine) 
         # midicmd "control" # s "midi" # midichan "14"
-    nudging = nudge (scale 0 4 $ slow 16 sine)
-    nudging2 = nudge (scale 0 4 $ slow 16.1 sine)
+    nudging = nudge (scale 0 8 $ slow 32 sine)
+    nudging2 = nudge (scale 0 8 $ slow 32.1 sine)
     mod p = foldEvery [2,3] (0.25 <~) $ p
+    chan = "0"
 
 hush
-
-d1 $ stack [
-    -- harmor
-    (|+| note "-3") $
-    s "midi*4" 
-        # midichan "14"
-        # note "[{0 -12 0 12 -24}%1,{2 5 14 -10 9}%1, {4 16 11}%1]/16",
-    -- bd
-    s "midi*4"
-        # midichan "0"
-        # note "-60",
-    -- cp
-    s "~ midi/4"
-        # midichan "0"
-        # note "-57",
-    -- swt
-    ctlNum "35*4" # midicmd "control" # s "midi" # midichan "0" # control (scale 0 20 $ slow 27 sine),
-    -- swd
-    ctlNum "36*4" # midicmd "control" # s "midi" # midichan "0" # control (scale 0 20 $ slow 26 sine),
-    -- bddec
-    ctlNum "37*4" # midicmd "control" # s "midi" # midichan "0" # control (scale 0 50 $ slow 25 sine),
-    -- bdrev
-    ctlNum "39*4" # midicmd "control" # s "midi" # midichan "0" # control (scale 0 1 $ slow 24 sine),
-    -- scene
-    ctlNum "92*4" # midicmd "control" # s "midi" # midichan "0" # control "[0]/64",
-    ctlNum "1*4" # modbig 30,
-    ctlNum "2*4" # modbig 31,
-    ctlNum "3*4" # modbig 32,
-    -- harmor ab
-    ctlNum "5*4" # control (scale 0 1 $ slow 31.1 sine) # midicmd "control" # s "midi" # midichan "14" ] # nudging
 
 let pos = a
     rot = b
     growth = c
 
-    vis $ (|+| nudge "0.15") $ shift $ hit "1*4" 
+hush
+
+d1 $ (|+| nudge "0.2") $ stack [
+    -- harmor
+    (|+| note "-3") $
+    gain "1.15*4" 
+        # note "[{0 -12 0 12 -24}%1,{2 5 14 -10 9}%1, {4 16 11}%1]/16",
+    -- harmor ab
+    ctlNum "5*4" # control (scale 0 50 $ slow 15.1 sine) # midicmd "control",
+    ctlNum "1*4" # control (scale 0 127 $ slow 32.1 sine) # midicmd "control",
+    ctlNum "2*4" # control (scale 0 127 $ slow 33.1 sine) # midicmd "control",
+    ctlNum "3*4" # control (scale 0 127 $ slow 30.1 sine) # midicmd "control",
+    ctlNum "10*4" # control (scale 0 127 $ slow 29.1 sine) # midicmd "control"  ] # s "midi" # midichan chan # nudging
+
+d2 $ (|+| nudge "0.0") $ s "k*4" # n "2" # speed (scale 0.8 1.2 $ slow 19 sine) 
+    # lpf (scale 100 10000 $ slow 17 sine) # resonance (scale 0 0.1 $ slow 18 sine) # nudging # gain "0.95"
+
+    vis $ (|+| nudge "0.04") $ shift $ hit "1*4" 
         # view "[nudges]"
-        # pos (scale 0 0.01 $ slow 20 tri)
-        # rot (scale 0 0.01 $ slow 21 tri)
-        # growth (scale 0 0.9 $ slow 22 tri)
-        # fade "0.7"
-        # red (scale 0.1 1 $ slow 23 sine)
-        # green (scale 0.1 1 $ slow 24 sine)
-        # blue (scale 0.1 1 $ slow 25 sine)
+        # pos (scale 0 0.0 $ slow 26 tri)
+        # rot (scale 0 0.3 $ slow 27 tri)
+        # growth (scale 0 0.5 $ slow 28 tri)
+        # fade "0.65"
+        # red (scale 0 1 $ slow 23 sine)
+        # green (scale 0 1 $ slow 24 sine)
+        # blue (scale 0 1 $ slow 25 sine)
         # nudging
 
 hush
-
-d1 $ s "midi" # note "0" # midichan "14" 

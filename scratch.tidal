@@ -1,0 +1,198 @@
+-- test
+
+let shift p = (1 <~) $ p
+
+do
+  let pat = "{0}%8"
+  let m p = shift $ density 1 $ degradeBy 0.5 $ shift $ p
+  vis $ sometimesBy 0.2 (|+| hit "1") $ m $ hit pat
+    # view (discretise (1/4) $ slow 44 $ choose ["scene6b"])
+    # a (scale 0 1 $ slow 383 rand)
+    # b 0.5
+    # c 0.5
+    # fade (scale 0 1 $ slow 181 rand)
+    # nudge "0.35"
+  d1 $ (|*| gain "1.25") $ sometimesBy 0.2 (|+| n "1") $ (|+| n "3") $ m $ n pat
+      # stack [
+        s (discretise (1/4) $ slow 44 $ choose ["bitperc"]) # cut "338" # speed "1"]
+  d2 $ (|+| n "2") $ m $ n pat # s "bitsd" # cut "3" # gain "1"
+  d3 $ m $ n pat # s "bitpad1" # cut "83810" # rel "0.3" # gain "1.2" # lpf "1000"
+
+hush
+hush
+
+let gtfo p = (const $ midinote "~") $ p
+let shift p = (8 <~) $ p
+
+do
+  let pat = "{1}%8"
+  let m p = (|=| gain "1.25") $ degradeBy 0.1 $ density 8 $ shift $ p
+  d1 $ m $ (|+| n 8) $ s "midi" # n "[0,2,4]" # midicmd "[noteOn, control]" # midichan "15"
+    # stack [
+      ctlNum 1 # control 100,
+      ctlNum 2 # control 30,
+      sometimes (# control 127) $ ctlNum 3 # control 2]
+  d2 $ m $ sometimes (# midinote "3") $ s "midi"
+    # midinote "2" # midicmd "noteOn" # midichan "0"
+
+
+hush
+
+
+d1 $ (# stack [ctlNum 1 # control (scale 0 127 $ slow 30 sine), ctlNum 2 # control (scale 0 127 $ slow 20 sine)]) $ s "midi*8"
+    # n "0"
+    # midicmd "[noteOn, control]"
+    # midichan "15"
+    # gain "1.25"
+
+
+hush
+
+let inv 1 = 0
+
+let inv 0 = 1
+
+d1 $ sound "k*8?" # orbit "0"
+
+do
+  let pat = "{0 1 1 0 0 ~ ~ 0 0 1 1 ~ 1 0 0 0 ~ ~ ~ ~ ~ ~ }%8"
+  vis $ degradeBy 0.2 $ hit pat
+    # view "scene1"
+    # a "0.9"
+    # b "0.9"
+    # c "0.5"
+    # nudge "0.3"
+  d1 $ degradeBy 0.2 $ stack [
+    gain (pat) # s "alk:2" # cut "3243",
+    (|+| n "1") $ n (pat) # s "alstab" # speed "0.5" # cut "33",
+    (|*| gain "0.9") $ gain (inv <$> pat) # s "cp" ]
+
+
+hush
+
+d2 $ loopAt 8 $ sound "scrape" # orbit "1"
+
+
+-- test
+do
+  let m p = whenmod 20 10 (slow 1.5) $
+            whenmod 30 20 (density 1.25) $
+            whenmod 35 25 (density 1.5) $
+            move $
+            p
+  d1 $ m $
+    stack [
+    (0.25 <~) $ degradeBy 0.6 $move $
+        slow 2 $ s "midi(3,8)"
+          # n (shift' 100 $ choose [-11,-9,-7,-5]),
+    (0.5 <~) $ degradeBy 0.6 $ s "midi" # n "-12",
+    sometimes (0.125 <~) $ shift $
+      degradeBy 0.4 $ shift' 4 $ sound "midi" # n "-18",
+    degradeBy 0.3 $ sound "midi*8" # n "-23",
+    degradeBy 0.4 $ move $
+      shift $ sound "midi(3,8)" # n "-24" ]
+      # midicmd "noteOn" # midichan "0" # gain "1.25"
+  -- reverb big
+  d2 $ m $ shift $
+    degradeBy 0.5 $ shift' 17 $
+    s "midi*4" # midicmd "control" # midichan "0"
+    # ctlNum "1" # control (slow 1.389 $ choose [0,0,0,127])
+  -- reverb small
+  d3 $ m $ shift $
+    degradeBy 0.5 $ shift' 200 $
+      s "midi*8" # midicmd "control" # midichan "0"
+      # ctlNum "2" # control (slow 1.789 $ choose [0,0,0,0,0,127])
+  -- delay wet
+  d4 $ m $ shift $
+    degradeBy 0.5 $ shift' 81 $ s "midi*8" # midicmd "control" # midichan "0"
+    # ctlNum "3" # control (slow 3.89 $ choose [0,0,0,0,60,80,100])
+  -- delay time
+  d5 $ m $ shift $
+    degradeBy 0.4 $ s "midi*8" # midicmd "control" # midichan "0"
+    # ctlNum "4" # control (slow 290.228 $ choose [0,1,2,3])
+  -- lpf
+  d6 $ m $ shift $
+    degradeBy 0.1 $ s "midi" # midicmd "control" # midichan "0"
+    # ctlNum "5" # control (slow 19.819 $ choose [127,127,127,127,60,100])
+  -- hpf
+  d7 $ m $ shift' 39 $
+    degradeBy 0.1 $ s "midi" # midicmd "control" # midichan "0"
+    # ctlNum "6" # control (slow 29.819 $ choose [0,0,0,0,0,60,30])
+  -- gross beat
+  d8 $ m $ shift' 39 $
+    degradeBy 0.1 $ s "midi" # midicmd "control" # midichan "0"
+    # ctlNum "7" # control (scale 0 127 $ slow 239.819 $ rand)
+  -- phaser
+  d9 $ m $ shift' 391 $
+    degradeBy 0.1 $ s "midi*4" # midicmd "control" # midichan "0"
+    # ctlNum "8" # control (slow 29.819 $ choose [0,0,0,0,0,127])
+
+hush
+
+let shift p = (1 <~) $ p
+let delays = [(1/256), (1/128), (1/64), (1/32), (1/16), (1/8), (1/4)]
+
+let randDelay p = ((|=| delay (scale 0.8 0.9 $ shift' 5001 $ rand)) . (|=| delaytime (_discretise (1/2) $ choose delays)) . (|=| delayfeedback (scale 0.7 0.95 $ shift' 5003 $ rand))) $ p
+
+bps (220/120)
+
+d1 $ every 12 (slow 16) $
+  degradeBy (_discretise (1/2) $ (1 <~) $ choose [0.1,0.2,0.3,0.4,0.5]) $ (1 <~) $
+  often (density 2) $ (1 <~) $
+    rarely (|+| n "1") $ (1 <~) $ 
+    s "8z*8" # cut "1" # n (slow 200 $ run 10) 
+    # orbit "0" 
+
+hush
+
+
+
+
+d1 $ sound "cp*8" # nudge (scale 0 2 $ slow 8 sine) # pan "0.2"
+
+d2 $ sound "cp*8" # pan "0.8" # nudge (scale 0 2 $ slow 8.1 sine) # speed "0.9"
+
+hush
+
+-- test
+
+vis $ (|+| nudge "0.15") $ shift $ hit "1*4" 
+  # view "[nudges]"
+  # pos (scale 0 0.01 $ slow 20 tri)
+  # rot (scale 0 0.01 $ slow 21 tri)
+  # growth (scale 0 0.9 $ slow 22 tri)
+  # fade "0.7"
+  # red (scale 0.1 1 $ slow 23 sine)
+  # green (scale 0.1 1 $ slow 24 sine)
+  # blue (scale 0.1 1 $ slow 25 sine)
+  # nudging
+
+
+vis $ (|+| nudge "0.5") $ sometimes (|+| hit "1") $ 
+  hit "0*4" # view "[vectorGrid vectorGridB nudges maze cubeFractal cubeGrid cubePops nodes]/63" 
+    # red (scale 0 1 $ slow 25 sine)
+    # green (scale 0 1 $ slow 19 sine)
+    # blue (scale 0 1 $ slow 18 sine)
+    # a (scale 0 0.9 $ slow 16 sine)
+    # b (scale 0 0.9 $ slow 18.52 sine)
+    # c (scale 0 0.9 $ slow 17.2622 sine)
+    # d (scale 0 0.9 $ slow 17 sine)
+    # fade (scale 0.1 0.7 $ slow 19 sine)
+    # nudge (scale 0 8 $ slow 32 sine)
+
+d2 $ sometimes (# n "7") $ s "[k*4]" # cut "1" # lpf "2000" # nudge (scale 0 8 $ slow 32 sine)
+
+d1 $ (|+| note "[0 -2 -3 -10 2]/32") $ 
+  (|+| nudge "0.2") $ sometimes (|+| note "2") $ 
+  s "midi*4" # note "[0,-2,3,10]" # midichan "[0 2 3 4]/32" # nudge (scale 0 8 $ slow 32 sine)
+    
+d3 $ (|+| nudge "0.2") $ 
+  stack [ 
+    ctlNum "6*4" # control (scale 0 127 $ slow 27 sine),
+    ctlNum "7*4" # control (scale 0 127 $ slow 26 sine),
+    ctlNum "10*4" # control (scale 0 127 $ slow 28 sine),
+    ctlNum "5*4" # control (scale 0 127 $ slow 29 sine),
+    ctlNum "1*4" # control (scale 0 127 $ slow 30 sine),
+    ctlNum "2*4" # control (scale 0 127 $ slow 31 sine),
+    ctlNum "3*4" # control (scale 0 127 $ slow 32 sine) ] 
+    # s "midi" # midicmd "control" # midichan "[0 2 3 4 5]/32" # nudge (scale 0 8 $ slow 32 sine)
