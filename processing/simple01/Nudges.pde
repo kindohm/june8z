@@ -38,8 +38,8 @@ public class Nudges extends Scene {
     unit.vel = new PVector(0, 0, 0);
     unit.accel = new PVector(0, -0.01, 0);  
     unit.fadeRate= fade;
-    unit.initRotateY = random(-PI, PI)*a;
-    unit.rotation = b * 0.1;
+    unit.initRotateY = random(-PI, PI)*a*0.5;
+    unit.rotation = b * 0.01;
     unit.growth = c * 1.5;
 
     unit.unitColor = color(data.oscRed * 255, data.oscGreen*255, data.oscBlue*255);
