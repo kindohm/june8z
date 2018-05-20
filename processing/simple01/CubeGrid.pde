@@ -72,6 +72,7 @@ class CubeGrid extends Scene {
     high = hitVal > 0.5;
     fadeAmount = d;
     currentScale = 1;
+    cam.reset(0);
   }
 
   void doRotation() {
@@ -82,7 +83,6 @@ class CubeGrid extends Scene {
   void draw() {    
 
     if (reset) {
-      cam.reset(0);
       reset = false;
     }
 

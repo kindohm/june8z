@@ -31,28 +31,29 @@ public class CubePops extends Scene {
     //float red = data.oscRed;
     //float green = data.oscGreen;
     //float blue = data.oscBlue;
-    float fade = data.oscFade;
-    
+    float fade = 1; //data.oscFade;
+
     rows = int(map(a, 0, 1, 1, 25));
     cols = int(map(b, 0, 1, 1, 25));
 
-    //units = new Unit[cols][rows];
+    units = new Unit[cols][rows];
     for (int c = 0; c < cols; c++) {
       for (int r = 0; r < rows; r++) {
+
         Unit unit = new Unit();
         unit.pos = new PVector(c * cellSize, 0, r * cellSize);
         unit.vel = new PVector(0, 0, 0);
         unit.accel = new PVector(0, random(-0.2, 0), 0);  
         unit.fadeRate= fade;
-        if (hitVal > 0.5){
-          unit.unitColor = color(random(0,1)*255, random(0,1)*25, random(0,1)*255);
-        }else{
-          unit.unitColor = color(random(0,1)*25, random(0,1)*255, random(0,1)*255);
+        if (hitVal > 0.5) {
+          unit.unitColor = color(random(0, 1)*255, random(0, 1)*25, random(0, 1)*255);
+        } else {
+          unit.unitColor = color(random(0, 1)*25, random(0, 1)*255, random(0, 1)*255);
         }
         units[c][r] = unit;
       }
     }
-    
+
     cam.reset(0);
   }
 
@@ -119,7 +120,7 @@ public class Unit {
     pos.x += vel.x;
     pos.y += vel.y;
     pos.z += vel.z;
-    if (opacity > 0.1){
+    if (opacity > 0.1) {
       opacity -= (1-fadeRate)*2.5;
     }
   }

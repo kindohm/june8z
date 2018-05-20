@@ -9,7 +9,7 @@ ArrayList<Scene> scenesList = new ArrayList<Scene>();
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "nudges";
+String sceneName = "rain";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -26,6 +26,8 @@ void setup() {
 
   scenesList.add(new Reg1());
   scenesList.add(new Reg1B());
+  scenesList.add(new Reg2());
+  scenesList.add(new Reg2B());
   scenesList.add(new CubeGrid());
   scenesList.add(new CubeGridB());
   scenesList.add(new VectorGrid());
@@ -38,8 +40,6 @@ void setup() {
   scenesList.add(new Nodes());
   scenesList.add(new Maze());
   scenesList.add(new MazeB());
-  scenesList.add(new Reg2());
-  scenesList.add(new Reg2B());
   scenesList.add(new Beziers());
   scenesList.add(new CubePops());
   scenesList.add(new Carpet());
@@ -103,16 +103,24 @@ void mousePressed() {
   doHit();
 }
 
+void mouseDragged(){
+  doHit();
+}
+
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == RIGHT) {
+      println("RIGHT");
       sceneIndex++;
       if (sceneIndex >= scenesList.size()) sceneIndex = 0;      
       currentScene = scenesList.get(sceneIndex);// scenesArray[sceneIndex];
+      sceneName = currentScene.getName();
     } else if (keyCode == LEFT) {
+      println("LEFT");
       sceneIndex--;
       if (sceneIndex < 0) sceneIndex = scenesList.size() - 1;
       currentScene = scenesList.get(sceneIndex); // scenesArray[sceneIndex];
+      sceneName = currentScene.getName();
     }
   } else {
     if (key == ' ') {

@@ -41,13 +41,22 @@ public class Rain extends Scene {
   }
 
   void init(String lastScene) {
+    doReset();
+  }
+
+  void doReset() {
+    cells = new float[maxRowCount][colCount];
+    hits = new boolean[maxRowCount][colCount];
+    fades = new float[maxRowCount][colCount];
+    currentOpacities = new float[maxRowCount][colCount];
+    currentRow = 0;
   }
 
   void hit(HitData data) {
 
     float hitVal = data.oscHit;
     float fade = data.oscFade;
-    
+
     for (int col = 0; col < colCount; col++) {
       cells[currentRow][col] = random(minHeight, maxHeight);
       hits[currentRow][col] = hitVal > 0.5;
@@ -58,11 +67,7 @@ public class Rain extends Scene {
     currentRow++;
 
     if (reset || currentRow >= maxRowCount) {
-      cells = new float[maxRowCount][colCount];
-      hits = new boolean[maxRowCount][colCount];
-      fades = new float[maxRowCount][colCount];
-      currentOpacities = new float[maxRowCount][colCount];
-      currentRow = 0;
+      doReset();
       reset = false;
     }
   }

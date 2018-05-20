@@ -3,9 +3,9 @@ class Reg1 extends Scene {
   int rows = 10;
   int cols = 40;
   int minCols = 1;
-  int maxCols = 50;
+  int maxCols = 10;
   int minRows = 1;
-  int maxRows = 50;
+  int maxRows = 10;
   int currentRow = 0, currentCol = 0, rectWidth, rectHeight;
   float stroke, fadeRate;
   int red1 = 255, green1 = 0, blue1 = 255, red2 = 0, green2 = 255, blue2 = 255;
@@ -18,7 +18,8 @@ class Reg1 extends Scene {
 
   void init(String oldSceneName) {
     if (oldSceneName != "reg1") {
-      cam.reset(0);
+      //cam.reset(0);
+      //buildTable();
     }
   }
 

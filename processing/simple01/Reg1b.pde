@@ -11,7 +11,7 @@ class Reg1B extends Reg1 {
 
   void init(String oldSceneName) {
     if (oldSceneName != "reg1B") {
-      cam.reset(0);
+      //cam.reset(0);
     }
   }
 }

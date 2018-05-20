@@ -53,6 +53,7 @@ class VectorGrid extends Scene {
     currentHitVal = hitVal;
     currentFade = 0;
     currentRotation = 0;
+    cam.reset(0);
   }
 
   void doRotation() {
@@ -64,7 +65,6 @@ class VectorGrid extends Scene {
     postDraw2d();
 
     if (reset) {
-      cam.reset(0);
       reset = false;
     }
 

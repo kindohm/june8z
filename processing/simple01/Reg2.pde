@@ -3,9 +3,9 @@ class Reg2 extends Scene {
   int rows = 10;
   int cols = 40;
   int minCols = 1;
-  int maxCols = 30;
+  int maxCols = 10;
   int minRows = 1;
-  int maxRows = 30;
+  int maxRows = 10;
   int currentRow = 0, currentCol = 0, rectWidth, rectHeight;
   Scene9Cell[][] table;
   PImage img1, img2;
@@ -19,7 +19,8 @@ class Reg2 extends Scene {
 
   void init(String oldSceneName) {
     if (oldSceneName != "reg2") {
-      cam.reset(0);
+      //cam.reset(0);
+      //buildTable();
     }
   }
 
