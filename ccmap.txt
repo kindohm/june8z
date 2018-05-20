@@ -9,6 +9,11 @@
 9 trem speed
 10 mix
 11 harmonizer
-
+12 f1env
+13 f1width
+14 f2env
+15 f2width
+16 unison count
+17 unison type
 
 92 active scene

@@ -1,8 +1,9 @@
 bps (145/120)
 
 do
-    let pat  = "{1       ~ ~ 1 ~ 1 ~ ~}%16"
-        cpp  = "{1       ~ ~ ~ ~ ~ ~ ~}%16"
+    let pat  = "{1       ~ ~ 1 ~ 1 ~ 1 ~ ~}%16"
+        cpp  = "{1       ~ ~ ~ ~ ~ ~ ~ ~ ~}%16"
+        vpat = "{[0 1]/2 ~ ~ 1 ~ 1 ~ 1 ~ ~}%16"
         chan = "4"
         midinudge = "0.2"
     d1 $ 
@@ -19,5 +20,13 @@ do
             gain pat # ctlNum "2" # control (scale 0 127 $ slow 35 tri),
             gain pat # ctlNum "3" # control (scale 0 127 $ slow 36 tri)] 
         # s "midi" # midichan chan # nudge midinudge # midicmd "control"
+    vis $ stdvisnudge $ 
+        hit vpat # view "cubePops"
+        # a (scale 0 1 $ slow 40 sine)
+        # b (scale 0 1 $ slow 41 sine)
+        # c (scale 0 0.8 $ slow 19 sine)
+        # d (scale 0 1 $ slow 18 sine)
+        # fade 1
+
 
     hush

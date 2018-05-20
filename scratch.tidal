@@ -196,3 +196,6 @@ d3 $ (|+| nudge "0.2") $
     ctlNum "2*4" # control (scale 0 127 $ slow 31 sine),
     ctlNum "3*4" # control (scale 0 127 $ slow 32 sine) ] 
     # s "midi" # midicmd "control" # midichan "[0 2 3 4 5]/32" # nudge (scale 0 8 $ slow 32 sine)
+
+    hush
+
