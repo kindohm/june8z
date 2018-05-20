@@ -28,17 +28,19 @@ do
         control (dis $ scale 0 127 $ shift' 7 $ rand) # ctlNum "7" ] 
             # s "midi" # midichan chan # midicmd "control" 
     d3 $ stdmidinudge $ sometimesBy 0.1 (|+| control "127") $ shift $ mod $ control "0*8" # ctlNum 5 # s "midi" # midichan chan # midicmd "control"
-    vis $ stdvisnudge $ sometimesBy 0.1 (|+| hit "1") $ shift $ mod $ hit "0*8" 
-        # view (dis $ choose ["nodes", "nudges", "cubePops", "cubeFractal", "cubeGrid", "vectorGrid", "maze", "rain"])
-        # a (scale 0 1 $ slow 21 sine)
-        # b (scale 0 1 $ slow 22 sine)
-        # c (scale 0 1 $ slow 23 sine)
-        # d (scale 0 1 $ slow 24 sine)
-        # fade (scale 0 1 $ slow 25 $ sine)
+    vis $ stdvisnudge $ sometimesBy 0.1 (|+| hit "0") $ shift $ mod $ hit "1*8" 
+        # view (dis $ choose ["nodes"])
+        # a 0
+        # b 0
+        # c 0
+        # d 0
+        # fade 0
         # red (scale 0 1 $ slow 20 sine)
         # green (scale 0 1 $ slow 19 sine)
         # blue (scale 0 1 $ slow 18 sine)
 
+
+vis $ hit "1*8" # view "nodes"
 
     hush
     
