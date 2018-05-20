@@ -94,8 +94,9 @@ class Reg1 extends Scene {
           strokeVal = cell.getStroke();
           opacity = cell.getOpacity();
         } else {
+          println("reg1 wtf");
           hitVal = 0;
-          strokeVal = 1;
+          strokeVal = 5;
           opacity = 0;
         }
 

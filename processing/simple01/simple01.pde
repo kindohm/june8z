@@ -9,7 +9,7 @@ ArrayList<Scene> scenesList = new ArrayList<Scene>();
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "rain";
+String sceneName = "reg1";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -25,10 +25,10 @@ void setup() {
   scenesHash = new HashMap<String, Scene>();
 
   scenesList.add(new Reg1());
+  scenesList.add(new CubeGrid());
   scenesList.add(new Reg1B());
   scenesList.add(new Reg2());
   scenesList.add(new Reg2B());
-  scenesList.add(new CubeGrid());
   scenesList.add(new CubeGridB());
   scenesList.add(new VectorGrid());
   scenesList.add(new VectorGridB());
