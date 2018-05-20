@@ -43,7 +43,7 @@ public class Nodes extends Scene {
       reset();
     }
 
-    //fade = random(0, 0.5);
+    //fade = random(0, 1);
 
     Node newNode = new Node();
     newNode.high = hitVal > 0.5;
