@@ -17,8 +17,8 @@ PeasyCam cam;
 float oscA, oscB, oscC, oscD, oscE, oscRed, oscGreen, oscBlue, oscHit, oscFade;
 
 void setup() {
-  fullScreen(P3D);
-  //size(960, 800, P3D);
+  //fullScreen(P3D);
+  size(960, 800, P3D);
 
   cam = new PeasyCam(this, 0, 0, 0, 500);
 
@@ -32,18 +32,18 @@ void setup() {
   scenesList.add(new CubeGridB());
   scenesList.add(new VectorGrid());
   scenesList.add(new VectorGridB());
-  scenesList.add(new Spiral());
-  scenesList.add(new SpiralB());
+  //scenesList.add(new Spiral());
+  //scenesList.add(new SpiralB());
   scenesList.add(new Rain());
   scenesList.add(new RainB());
   scenesList.add(new CubeFractal());
   scenesList.add(new Nodes());
   scenesList.add(new Maze());
   scenesList.add(new MazeB());
-  scenesList.add(new Beziers());
+  //scenesList.add(new Beziers());
   scenesList.add(new CubePops());
-  scenesList.add(new Carpet());
-  scenesList.add(new CarpetB());
+  //scenesList.add(new Carpet());
+  //scenesList.add(new CarpetB());
   scenesList.add(new Nudges());
 
   for (int i = 0; i < scenesList.size(); i++) {
@@ -71,6 +71,23 @@ void oscEvent(OscMessage msg) {
       oscRed = msg.get(9).floatValue();
       oscGreen = msg.get(10).floatValue();
       oscBlue = msg.get(11).floatValue();
+    
+      if (!currentScene.getName().equals("nodes") && sceneName.equals("nodes")) {
+        println("MAKING A NEW NODES");
+        currentScene = new Nodes();
+        currentScene.init("");
+      } else if (!currentScene.getName().equals("reg1") && sceneName.equals("reg1")){
+        println("MAKING A NEW REG1");
+        currentScene = new Reg1();
+        currentScene.init("");
+      }else {
+        currentScene = getScene();
+        if (lastScene != currentScene) {
+          currentScene.init(lastScene != null ? lastScene.getName() : "");
+        }
+      }
+
+      lastScene = currentScene;
 
       doHitOsc();
     }
@@ -81,31 +98,33 @@ void oscEvent(OscMessage msg) {
 }
 
 Scene getScene() {
-  //return currentScene;
   return scenesHash.get(sceneName);
 }
 
 void draw() {
   background(0); 
-  Scene scene = getScene();
+  //Scene scene = getScene();
 
-  if (scene == null) return;
+  //if (scene == null) return;
 
-  if (scene != lastScene) {
-    scene.init(lastScene != null ? lastScene.name : "");
-  }
+  //if (scene != lastScene) {
+  //  scene.init(lastScene != null ? lastScene.name : "");
+  //}
 
-  scene.draw();
-  lastScene = scene;
+  //scene.draw();
+  //lastScene = scene;
+
+  if (currentScene == null) return;
+  currentScene.draw();
 }
 
 void mousePressed() {
   doHit();
 }
 
-void mouseDragged(){
-  doHit();
-}
+//void mouseDragged(){
+//  doHit();
+//}
 
 void keyPressed() {
   if (key == CODED) {
@@ -138,17 +157,16 @@ void doHit() {
 
   c = 0.4;
 
-  Scene scene = getScene();
   if (mouseButton == LEFT) {
-    scene.hit(HitData.Make(1, a, b, c, d, e, 0.5, 0, 0, 0));
+    currentScene.hit(HitData.Make(1, a, b, c, d, e, 0.5, 0, 0, 0));
   } else {
-    scene.hit(HitData.Make(0, a, b, c, d, e, 0.5, 0, 0, 0));
+    currentScene.hit(HitData.Make(0, a, b, c, d, e, 0.5, 0, 0, 0));
   }
 }
 
 void doHitOsc() {
-  Scene scene = getScene();
-  scene.hit(HitData.Make(oscHit, oscA, oscB, oscC, oscD, oscE, oscFade, oscRed, oscGreen, oscBlue));
+  //Scene scene = getScene();
+  currentScene.hit(HitData.Make(oscHit, oscA, oscB, oscC, oscD, oscE, oscFade, oscRed, oscGreen, oscBlue));
 }
 
 

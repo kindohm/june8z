@@ -94,7 +94,7 @@ class Reg1 extends Scene {
           strokeVal = cell.getStroke();
           opacity = cell.getOpacity();
         } else {
-          println("reg1 wtf");
+          //println("reg1 wtf");
           hitVal = 0;
           strokeVal = 5;
           opacity = 0;
@@ -112,7 +112,7 @@ class Reg1 extends Scene {
       }
     }
 
-    postDraw2d();
+    //postDraw2d();
   }
 }
 
