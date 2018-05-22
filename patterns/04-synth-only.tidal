@@ -1,16 +1,18 @@
 bps (220/120)
 
+bps (400/120)
+
 hush
 
 do
     let chan = "5"
-    let dis p = discretise (1/8) $ p
+    let dis p = discretise (1/4) $ p
     let chan2 = (dis $ shift' 3009 $ choose [1,2,3,4])
-    let mod p = move $ degradeBy (discretise (1/2) $ shift' 500  $ choose[0.05,0.1..0.2]) $ 
-                shift $ density (discretise (1/4) $ shift' 203 $ choose[1,(4/3),2,1.5]) $ shift $ p
-    d1 $ stdmidinudge $ (|+| note "-24") $ sometimesBy 0.1 (|+| note "12") $ shift $ mod $
-        s "midi*8" # note "[0 7]/32" # midichan chan
-    d2 $ stdmidinudge $ shift $ mod $ stack [
+    let mod p = shift $ degradeBy 0.5 $ shift $ density 1 $ p
+    d1 $ stdmidinudge $ (|+| note "-24") $ sometimesBy 0.1 (|+| note "12") $ 
+            mod $ s "midi*8" # note "[0 7]/32" # midichan chan
+    d2 $ stdmidinudge $ 
+            mod $ stack [
         control (dis $ scale 0 127 $ rand) # ctlNum "1",
         control (dis $ scale 0 127 $ shift' 112 $ rand) # ctlNum "12",
         control (dis $ scale 0 127 $ shift' 113 $ rand) # ctlNum "13",
@@ -27,14 +29,16 @@ do
         control (dis $ scale 0 127 $ shift' 6 $ rand) # ctlNum "6",
         control (dis $ scale 0 127 $ shift' 7 $ rand) # ctlNum "7" ] 
             # s "midi" # midichan chan # midicmd "control" 
-    d3 $ stdmidinudge $ sometimesBy 0.1 (|+| control "127") $ shift $ mod $ control "0*8" # ctlNum 5 # s "midi" # midichan chan # midicmd "control"
-    vis $ stdvisnudge $ sometimesBy 0.1 (|+| hit "0") $ shift $ mod $ hit "1*8" 
-        # view (dis $ choose ["nodes"])
-        # a 0
-        # b 0
-        # c 0
-        # d 0
-        # fade 0
+    d3 $ stdmidinudge $ sometimesBy 0.1 (|+| control "127") $ 
+            mod $ control "0*8" # ctlNum 5 # s "midi" # midichan chan # midicmd "control"
+    vis $ stdvisnudge $ sometimesBy 0.1 (|=| hit "0") $ 
+            mod $ hit "1*8" 
+        # view (dis $ choose [ "reg1"])
+        # a (dis $ scale 0 1 $ slow 30 rand)
+        # b (dis $ scale 0 1 $ slow 31 rand)
+        # c (dis $ scale 0 1 $ slow 32 rand)
+        # d 0.1
+        # fade 0.6
         # red (scale 0 1 $ slow 20 sine)
         # green (scale 0 1 $ slow 19 sine)
         # blue (scale 0 1 $ slow 18 sine)

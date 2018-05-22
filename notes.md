@@ -1,8 +1,10 @@
 - consider rotating the transform, not the camera
 - cubeFractal needs color control from tidal params. sync colors to scenes, or additional shapes too
 - cubePops fix rotation? not centered?
-- cubePops a/b vals are wonky. a only produces large grid sizes centered around 0.5
 - reg synth doesn't vary enough. needs rework. not fun.
 - reg1 shows grid lines
 - rain shows grid lines
-- nodes lines stop connecting
+
+
+
+- nodes lines stop connecting (due to fade)
