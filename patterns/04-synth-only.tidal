@@ -8,8 +8,8 @@ do
     let chan = "5"
     let dis p = discretise (1/4) $ p
     let chan2 = (dis $ shift' 3009 $ choose [1,2,3,4])
-    let mod p = shift $ degradeBy 0.5 $ shift $ density 1 $ p
-    d1 $ stdmidinudge $ (|+| note "-24") $ sometimesBy 0.1 (|+| note "12") $ 
+    let mod p = shift $ degradeBy 0.7 $ shift $ density 1 $ p
+    d1 $ stdmidinudge $ (|+| note "-24") $ sometimesBy 0.2 (|+| note "12") $ 
             mod $ s "midi*8" # note "[0 7]/32" # midichan chan
     d2 $ stdmidinudge $ 
             mod $ stack [
@@ -29,16 +29,16 @@ do
         control (dis $ scale 0 127 $ shift' 6 $ rand) # ctlNum "6",
         control (dis $ scale 0 127 $ shift' 7 $ rand) # ctlNum "7" ] 
             # s "midi" # midichan chan # midicmd "control" 
-    d3 $ stdmidinudge $ sometimesBy 0.1 (|+| control "127") $ 
+    d3 $ stdmidinudge $ sometimesBy 0.2 (|+| control "127") $ 
             mod $ control "0*8" # ctlNum 5 # s "midi" # midichan chan # midicmd "control"
-    vis $ stdvisnudge $ sometimesBy 0.1 (|=| hit "0") $ 
+    vis $ stdvisnudge $ sometimesBy 0.2 (|=| hit "0") $ 
             mod $ hit "1*8" 
-        # view (dis $ choose [ "reg1"])
+        # view (dis $ choose [ "cubePops", "cubePops", "maze", "rain", "rainB", "nodes", "nodes", "reg1", "reg1B", "reg2", "reg2B", "cubeGridB", "cubeGrid", "vectorGrid", "vectorGridB"])
         # a (dis $ scale 0 1 $ slow 30 rand)
         # b (dis $ scale 0 1 $ slow 31 rand)
         # c (dis $ scale 0 1 $ slow 32 rand)
-        # d 0.1
-        # fade 0.6
+        # d (dis $ scale 0 1 $ slow 131 rand)
+        # fade (scale 0 1 $ slow 29 sine)
         # red (scale 0 1 $ slow 20 sine)
         # green (scale 0 1 $ slow 19 sine)
         # blue (scale 0 1 $ slow 18 sine)

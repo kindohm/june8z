@@ -13,6 +13,7 @@ public class Nodes extends Scene {
   float negHalfPi = -PI/2;
   float maxVel = 2.5;
   float maxRotVel = PI*0.01;
+  boolean resetCam;
 
   String getName() {
     return "nodes";
@@ -24,8 +25,7 @@ public class Nodes extends Scene {
   }
 
   void init(String lastScene) {
-    cam.reset(0);
-    cam.lookAt(0, -50, 0);
+    resetCam = true;
     reset();
   }
 
@@ -75,8 +75,15 @@ public class Nodes extends Scene {
     cam.rotateX(-0.0001);
   }
 
-  void draw() {
-    postDraw2d();
+  void draw3d() {
+    if (resetCam) {
+      cam.reset(0);
+      cam.lookAt(0, -50, 0);
+
+      resetCam = false;
+    }
+
+    //postDraw2d();
     doRotation();
 
     sphereDetail(12);
@@ -86,15 +93,34 @@ public class Nodes extends Scene {
 
     if (nodes[0] == null) return;
 
-    computeNode(nodes[0], null);
-
-    for (int i = 1; i < count; i++) {
-      Node node = nodes[i];
-      computeNode(node, nodes[i-1]);
+    for (int i = 0; i < count; i++) {
+      computeNode(nodes[i]);
     }
   }
 
-  void computeNode(Node node, Node prevNode) {
+  void draw2d() {
+    if (nodes[0] == null) return;
+
+    for (int i = 1; i < count; i++) {
+      Node node = nodes[i];
+      computeLine(node, nodes[i-1]);
+    }
+  }
+
+  void postDraw() {
+    for (int i = 0; i < count; i++) {
+      Node node = nodes[i];
+      node.opacity *= (1 - node.fadeRate * 0.04);
+      node.x += node.velocity.x;
+      node.y += node.velocity.y;
+      node.z += node.velocity.z;
+      node.rotateX += node.rotVelocity.x;
+      node.rotateY += node.rotVelocity.y;
+      node.rotateZ += node.rotVelocity.z;
+    }
+  }
+
+  void computeNode(Node node) {
     if (node.opacity > 0.25) {
       stroke(255, 255, 255, node.opacity);
       fill(node.nodeColor, node.opacity);
@@ -103,20 +129,14 @@ public class Nodes extends Scene {
       //stroke(255, 255, 255);
 
       drawObject(node);
+    }
+  }
 
-      node.opacity *= (1 - node.fadeRate * 0.04);
-      node.x += node.velocity.x;
-      node.y += node.velocity.y;
-      node.z += node.velocity.z;
-      node.rotateX += node.rotVelocity.x;
-      node.rotateY += node.rotVelocity.y;
-      node.rotateZ += node.rotVelocity.z;
-
-      if (prevNode != null) {
-        strokeWeight(2);
-        stroke(node.nodeColor, node.opacity);
-        line(node.x, node.y, node.z, prevNode.x, prevNode.y, prevNode.z);
-      }
+  void computeLine(Node node, Node prevNode) {
+    if (prevNode != null) {
+      strokeWeight(2);
+      stroke(node.nodeColor, node.opacity);
+      line(node.x, node.y, node.z, prevNode.x, prevNode.y, prevNode.z);
     }
   }
 

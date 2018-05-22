@@ -9,7 +9,7 @@ ArrayList<Scene> scenesList = new ArrayList<Scene>();
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "reg1";
+String sceneName = "nodes";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -18,7 +18,7 @@ float oscA, oscB, oscC, oscD, oscE, oscRed, oscGreen, oscBlue, oscHit, oscFade;
 
 void setup() {
   fullScreen(P3D);
-  //size(960, 800, P3D);
+  // size(960, 800, P3D);
 
   cam = new PeasyCam(this, 0, 0, 0, 500);
 
@@ -32,18 +32,18 @@ void setup() {
   scenesList.add(new CubeGridB());
   scenesList.add(new VectorGrid());
   scenesList.add(new VectorGridB());
-  scenesList.add(new Spiral());
-  scenesList.add(new SpiralB());
+  //scenesList.add(new Spiral());
+  //scenesList.add(new SpiralB());
   scenesList.add(new Rain());
   scenesList.add(new RainB());
   scenesList.add(new CubeFractal());
   scenesList.add(new Nodes());
   scenesList.add(new Maze());
   scenesList.add(new MazeB());
-  scenesList.add(new Beziers());
+  //scenesList.add(new Beziers());
   scenesList.add(new CubePops());
-  scenesList.add(new Carpet());
-  scenesList.add(new CarpetB());
+  //scenesList.add(new Carpet());
+  //scenesList.add(new CarpetB());
   scenesList.add(new Nudges());
 
   for (int i = 0; i < scenesList.size(); i++) {

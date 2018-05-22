@@ -22,7 +22,7 @@ public class Rain extends Scene {
   float maxHeight = 40;
   float cellWidth = 1;
   float rectWidth;
-  boolean reset;
+  boolean reset, resetCam;
   float[][] cells = new float[maxRowCount][colCount];
   boolean[][] hits = new boolean[maxRowCount][colCount];
   float[][] fades = new float[maxRowCount][colCount];
@@ -42,6 +42,7 @@ public class Rain extends Scene {
 
   void init(String lastScene) {
     doReset();
+    resetCam = true;
   }
 
   void doReset() {
@@ -73,9 +74,13 @@ public class Rain extends Scene {
   }
 
 
-  void draw() {
-    preDraw2d();
-
+  void draw2d() {
+    //preDraw2d();
+    if (resetCam){
+      resetCam = false;
+      camera();
+    }
+    
     stroke(0);
     strokeWeight(5);
 
@@ -108,6 +113,6 @@ public class Rain extends Scene {
       }
     }
 
-    postDraw2d();
+    //postDraw2d();
   }
 }

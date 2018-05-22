@@ -11,7 +11,8 @@ public class CubeFractal extends Scene {
   float negHalfPi = -PI/2;
   float maxVel = 2.5;
   float maxRotVel = PI*0.01;
-  
+  boolean resetCam;
+
   String getName() {
     return "cubeFractal";
   }
@@ -22,8 +23,7 @@ public class CubeFractal extends Scene {
   }
 
   void init(String lastScene) {
-    cam.reset(0);
-    cam.lookAt(0, -50, 0);
+    resetCam = true;
     reset();
   }
 
@@ -81,8 +81,15 @@ public class CubeFractal extends Scene {
     cam.rotateX(-0.0001);
   }
 
-  void draw() {
-    postDraw2d();
+  void draw3d() {
+
+    if (resetCam) {
+      cam.reset(0);
+      cam.lookAt(0, -50, 0);
+      resetCam = false;
+    }
+
+    //postDraw2d();
     doRotation();
 
     sphereDetail(12);

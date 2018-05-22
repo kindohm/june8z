@@ -10,6 +10,7 @@ class Reg1 extends Scene {
   float stroke, fadeRate;
   int red1 = 255, green1 = 0, blue1 = 255, red2 = 0, green2 = 255, blue2 = 255;
   Scene1Cell[][] table;
+  boolean resetCam;
 
   Reg1() {
     name = "reg1";
@@ -21,6 +22,7 @@ class Reg1 extends Scene {
       //cam.reset(0);
       //buildTable();
     }
+    resetCam = true;
   }
 
   void buildTable() {
@@ -69,9 +71,14 @@ class Reg1 extends Scene {
   }
 
 
-  void draw() {
+  void draw2d() {
 
-    preDraw2d();
+    //preDraw2d();
+
+    if (resetCam){
+      camera();
+      resetCam = false;
+    }
 
     float hitVal, strokeVal, opacity;
     Scene1Cell cell;
@@ -86,7 +93,7 @@ class Reg1 extends Scene {
       for (int row = 0; row < rows; row++) {
 
         // safety!
-        if (col >= cols || row >= rows) return;
+        if (col >= cols || row >= rows || table[col] == null) return;
 
         cell = table[col][row];
         if (cell != null) {
@@ -112,7 +119,7 @@ class Reg1 extends Scene {
       }
     }
 
-    postDraw2d();
+    //postDraw2d();
   }
 }
 

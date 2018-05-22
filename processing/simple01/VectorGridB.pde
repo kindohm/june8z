@@ -12,7 +12,7 @@ class VectorGridB extends VectorGrid {
 
   void init(String oldSceneName) {
     if (oldSceneName != "vectorGridB") {
-      cam.reset(0);
+      reset = true;
     }
   }
 

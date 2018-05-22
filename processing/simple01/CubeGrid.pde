@@ -4,11 +4,11 @@ class CubeGrid extends Scene {
   int cols = 5;
   int slots = 5;
   int minCols = 1;
-  int maxCols = 10;
+  int maxCols = 9;
   int minRows = 1;
-  int maxRows = 10;
+  int maxRows = 9;
   int minSlots = 1;
-  int maxSlots = 10;
+  int maxSlots = 9;
   int currentRow = 0, currentCol = 0, currentSlot = 0, shapeSize = 85;
   int red1 = 100, green1 = 50, blue1 = 255, red2 = 50, green2 = 255, blue2 = 50;
   boolean reset = false;
@@ -25,7 +25,8 @@ class CubeGrid extends Scene {
 
   void init(String oldSceneName) {
     if (oldSceneName != "cubeGrid") {
-      cam.reset(0);
+      reset = true;
+      //cam.reset(0);
     }
   }
 
@@ -72,7 +73,6 @@ class CubeGrid extends Scene {
     high = hitVal > 0.5;
     fadeAmount = d;
     currentScale = 1;
-    cam.reset(0);
   }
 
   void doRotation() {
@@ -80,13 +80,14 @@ class CubeGrid extends Scene {
     cam.rotateX(0.002);
   }
 
-  void draw() {    
+  void draw3d() {    
 
     if (reset) {
+      cam.reset(0);
       reset = false;
     }
 
-    postDraw2d();
+    //postDraw2d();
     doRotation();
     sphereDetail(13);
     directionalLight(200, 102, 126, 0.15, -0.5, -0.7);

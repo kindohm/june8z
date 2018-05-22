@@ -22,7 +22,6 @@ class VectorGrid extends Scene {
   float rotationAmount = 0;
   float currentRotation = 0;
   int red1 = 0, green1 = 255, blue1 = 0, red2 = 0, green2 = 255, blue2 = 255;
-
   int newCols, newRows, newSlots;
 
   VectorGrid() {
@@ -30,7 +29,7 @@ class VectorGrid extends Scene {
   }
 
   void init(String oldSceneName) {
-    cam.reset(0);
+    reset = true;
   }
 
   void hit(HitData data) {
@@ -52,8 +51,7 @@ class VectorGrid extends Scene {
 
     currentHitVal = hitVal;
     currentFade = 0;
-    currentRotation = 0;
-    cam.reset(0);
+    currentRotation = 0;    
   }
 
   void doRotation() {
@@ -61,10 +59,11 @@ class VectorGrid extends Scene {
     cam.rotateX(0.002);
   }
 
-  void draw() {    
-    postDraw2d();
+  void draw3d() {    
+    //postDraw2d();
 
     if (reset) {
+      cam.reset(0);
       reset = false;
     }
 

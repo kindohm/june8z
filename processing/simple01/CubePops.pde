@@ -7,6 +7,7 @@ public class CubePops extends Scene {
   float floor = -100;
   Unit[][] units;
   Unit[][] mahUnits;
+  boolean resetCam;
 
   CubePops() {
     units = new Unit[cols][rows];
@@ -17,7 +18,7 @@ public class CubePops extends Scene {
   }
 
   void init(String lastScene) {
-    cam.reset(0);
+    //cam.reset(0);
   }
 
   void hit(HitData data) {
@@ -53,16 +54,22 @@ public class CubePops extends Scene {
         units[c][r] = unit;
       }
     }
-
-    cam.reset(0);
+    resetCam = true;
+    //cam.reset(0);
   }
 
   void doRotation() {
     cam.rotateY(0.001);
   }
 
-  void draw() {
-    postDraw2d();
+  void draw3d() {
+
+    if (resetCam) {
+      cam.reset(0);
+      resetCam = false;
+    }
+
+    //postDraw2d();
     doRotation();
 
     directionalLight(255, 255, 255, 0.15, -0.5, 0.7);

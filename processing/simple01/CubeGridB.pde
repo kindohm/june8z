@@ -11,7 +11,7 @@ class CubeGridB extends CubeGrid {
 
   void init(String oldSceneName) {
     if (oldSceneName != "cubeGridB"){
-        cam.reset(0);
+        //cam.reset(0);
     }
   }
 

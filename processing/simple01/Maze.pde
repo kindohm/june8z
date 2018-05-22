@@ -14,6 +14,7 @@ public class Maze extends Scene {
   boolean high;
   float rotAmount = 0;
   float rotation = 0;
+  boolean resetCam;
   
   Maze() {
     cellHeight = height / (rows * 0.8);
@@ -27,6 +28,7 @@ public class Maze extends Scene {
   }
 
   void init(String lastScene) {
+    resetCam = true;
   }
 
   void reconfigure(float mod) {
@@ -65,8 +67,13 @@ public class Maze extends Scene {
   }
 
 
-  void draw() {
-    preDraw2d();
+  void draw2d() {
+    //preDraw2d();
+    
+    if (resetCam){
+      resetCam = false;
+      camera();
+    }
 
     if (high) {
       fill(255, 0, 0, opacity);
@@ -93,7 +100,7 @@ public class Maze extends Scene {
       }
     }
 
-    postDraw2d();
+    //postDraw2d();
 
     opacity -= (1 - fadeAmount) * 40;
   }

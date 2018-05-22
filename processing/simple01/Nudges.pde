@@ -6,6 +6,7 @@ public class Nudges extends Scene {
   ArrayList<Nudge> units = new ArrayList<Nudge>();
   ArrayList<Nudge> deads = new ArrayList<Nudge>();
   float extents = 200;
+  boolean resetCam;
 
   Nudges() {
   }
@@ -15,7 +16,7 @@ public class Nudges extends Scene {
   }
 
   void init(String lastScene) {
-    cam.reset(0);
+    resetCam = true;
   }
 
   void hit(HitData data) {
@@ -53,15 +54,20 @@ public class Nudges extends Scene {
     units.add(unit);
 
 
-    //cam.reset(0);
+    
   }
 
   void doRotation() {
     //cam.rotateY(0.003);
   }
 
-  void draw() {
-    postDraw2d();
+  void draw3d() {
+    if (resetCam){
+      cam.reset(0);
+      resetCam = false;
+    }
+    
+    //postDraw2d();
     doRotation();
 
     directionalLight(255, 255, 255, 0.15, -0.5, -0.7);

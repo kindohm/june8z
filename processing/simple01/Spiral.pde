@@ -1,163 +1,163 @@
-class SpiralB extends Spiral {
-  public SpiralB() {
-    red1 = 152;
-    green1 = 36;
-    blue1 = 198;
-    red2 = 255;
-    green2 = 134;
-    blue2 = 237;
-  }
+//class SpiralB extends Spiral {
+//  public SpiralB() {
+//    red1 = 152;
+//    green1 = 36;
+//    blue1 = 198;
+//    red2 = 255;
+//    green2 = 134;
+//    blue2 = 237;
+//  }
 
-  String getName() {
-    return "spiralB";
-  }
-}
+//  String getName() {
+//    return "spiralB";
+//  }
+//}
 
-class Spiral extends Scene {
+//class Spiral extends Scene {
 
-  int rows;
-  int cols;
-  int maxDim = 31;
-  int minDim = 3;
-  Scene4Cell[][] table;
-  int currentX, currentY;
-  int centerX, centerY;
-  int currentSquareSize = 0;
-  float cellWidth, cellHeight;
+//  int rows;
+//  int cols;
+//  int maxDim = 31;
+//  int minDim = 3;
+//  Scene4Cell[][] table;
+//  int currentX, currentY;
+//  int centerX, centerY;
+//  int currentSquareSize = 0;
+//  float cellWidth, cellHeight;
 
-  int red2 = 255, green2 = 255, blue2 = 255;
-  int red1 = 0, green1 = 255, blue1 = 255;
+//  int red2 = 255, green2 = 255, blue2 = 255;
+//  int red1 = 0, green1 = 255, blue1 = 255;
 
-  String getName() {
-    return "spiral";
-  }
+//  String getName() {
+//    return "spiral";
+//  }
 
-  void buildTable() {
-    table = new Scene4Cell[cols][rows];
-    centerX = cols/2;
-    centerY = rows/2;
-  }
+//  void buildTable() {
+//    table = new Scene4Cell[cols][rows];
+//    centerX = cols/2;
+//    centerY = rows/2;
+//  }
 
-  void hit(HitData data) {
+//  void hit(HitData data) {
 
-    float hitVal = data.oscHit;
-    float a = data.oscA;
-    float fade = data.oscFade;
+//    float hitVal = data.oscHit;
+//    float a = data.oscA;
+//    float fade = data.oscFade;
 
-    int oldCols = cols;
-    int oldRows = rows;
-    fade = map(fade, 0, 1, 0, 10);
+//    int oldCols = cols;
+//    int oldRows = rows;
+//    fade = map(fade, 0, 1, 0, 10);
 
-    cols = int(map(a, 0, 1, minDim, maxDim));
-    rows = int(map(a, 0, 1, minDim, maxDim));
+//    cols = int(map(a, 0, 1, minDim, maxDim));
+//    rows = int(map(a, 0, 1, minDim, maxDim));
 
-    // ONLY permit odd numbers of rows and cols
-    if (cols % 2 == 0) cols++;
-    if (rows % 2 == 0) rows++;
+//    // ONLY permit odd numbers of rows and cols
+//    if (cols % 2 == 0) cols++;
+//    if (rows % 2 == 0) rows++;
 
-    cellWidth = width/cols;
-    cellHeight = height/rows;
+//    cellWidth = width/cols;
+//    cellHeight = height/rows;
 
-    if (table == null || cols != oldCols || rows != oldRows || (currentX == cols-1 && currentY == rows-1)) {
-      buildTable();
-      currentX = centerX;
-      currentY = centerY;
-      table[currentX][currentY] = new Scene4Cell(0, fade);
-      currentSquareSize = 1;
-      return;
-    } 
+//    if (table == null || cols != oldCols || rows != oldRows || (currentX == cols-1 && currentY == rows-1)) {
+//      buildTable();
+//      currentX = centerX;
+//      currentY = centerY;
+//      table[currentX][currentY] = new Scene4Cell(0, fade);
+//      currentSquareSize = 1;
+//      return;
+//    } 
 
-    advance();
-    table[currentX][currentY] = new Scene4Cell(hitVal, fade);
-  }
+//    advance();
+//    table[currentX][currentY] = new Scene4Cell(hitVal, fade);
+//  }
 
-  void advance() {
+//  void advance() {
 
-    int diffX = currentX - centerX;
-    int diffY = currentY - centerY;
+//    int diffX = currentX - centerX;
+//    int diffY = currentY - centerY;
 
-    // begin, center
-    if (diffX == 0 && diffY == 0) {
-      currentX++;
-      return;
-    }
+//    // begin, center
+//    if (diffX == 0 && diffY == 0) {
+//      currentX++;
+//      return;
+//    }
 
-    // end
-    if (diffX == currentSquareSize && diffY == currentSquareSize) {
-      currentX++;
-      currentSquareSize++;
-      return;
-    }
+//    // end
+//    if (diffX == currentSquareSize && diffY == currentSquareSize) {
+//      currentX++;
+//      currentSquareSize++;
+//      return;
+//    }
 
-    // right side
-    if (diffX == currentSquareSize && (diffY > -currentSquareSize)) {
-      currentY--;
-      return;
-    }
+//    // right side
+//    if (diffX == currentSquareSize && (diffY > -currentSquareSize)) {
+//      currentY--;
+//      return;
+//    }
 
-    // top side
-    if (diffY == -currentSquareSize && (diffX > -currentSquareSize)) {
-      currentX--;
-      return;
-    }
+//    // top side
+//    if (diffY == -currentSquareSize && (diffX > -currentSquareSize)) {
+//      currentX--;
+//      return;
+//    }
 
-    // left side
-    if (diffX == -currentSquareSize && diffY < currentSquareSize) {
-      currentY++;
-      return;
-    }
+//    // left side
+//    if (diffX == -currentSquareSize && diffY < currentSquareSize) {
+//      currentY++;
+//      return;
+//    }
 
-    // bottom side
-    if (diffY == currentSquareSize && diffX >= -currentSquareSize && diffX < currentSquareSize) {
-      currentX++;
-      return;
-    }
-  }
-
-
-  void draw() {
-
-    preDraw2d();
-
-    fill(100);
-    stroke(0);
-    strokeWeight(5);
-
-    for (int x = 0; x < cols; x++) {
-      for (int y = 0; y < rows; y++) {
-        Scene4Cell cell = table[x][y];        
-        if (cell != null) {
-          if (cell.hitVal == 1) {
-            fill(red2, green2, blue2, cell.opacity);
-          } else {
-            fill(red1, green1, blue1, cell.opacity);
-          }
-          rect(cellWidth*x, cellHeight*y, cellWidth, cellHeight);
-          cell.doFade();
-        }
-      }
-    }
+//    // bottom side
+//    if (diffY == currentSquareSize && diffX >= -currentSquareSize && diffX < currentSquareSize) {
+//      currentX++;
+//      return;
+//    }
+//  }
 
 
-    postDraw2d();
-  }
-}
+//  void draw() {
 
-public class Scene4Cell {
-  public float hitVal;
-  public float fadeRate;
-  public float opacity;
+//    preDraw2d();
 
-  public Scene4Cell(float val, float fadeRateVal) {
-    hitVal = val;
-    fadeRate = fadeRateVal;
-    opacity = 255;
-  }
+//    fill(100);
+//    stroke(0);
+//    strokeWeight(5);
 
-  void doFade() {
-    opacity -= fadeRate;
-    if (opacity < 0) {
-      opacity = 0;
-    }
-  }
-}
+//    for (int x = 0; x < cols; x++) {
+//      for (int y = 0; y < rows; y++) {
+//        Scene4Cell cell = table[x][y];        
+//        if (cell != null) {
+//          if (cell.hitVal == 1) {
+//            fill(red2, green2, blue2, cell.opacity);
+//          } else {
+//            fill(red1, green1, blue1, cell.opacity);
+//          }
+//          rect(cellWidth*x, cellHeight*y, cellWidth, cellHeight);
+//          cell.doFade();
+//        }
+//      }
+//    }
+
+
+//    postDraw2d();
+//  }
+//}
+
+//public class Scene4Cell {
+//  public float hitVal;
+//  public float fadeRate;
+//  public float opacity;
+
+//  public Scene4Cell(float val, float fadeRateVal) {
+//    hitVal = val;
+//    fadeRate = fadeRateVal;
+//    opacity = 255;
+//  }
+
+//  void doFade() {
+//    opacity -= fadeRate;
+//    if (opacity < 0) {
+//      opacity = 0;
+//    }
+//  }
+//}

@@ -13,5 +13,6 @@ class Reg1B extends Reg1 {
     if (oldSceneName != "reg1B") {
       //cam.reset(0);
     }
+    resetCam = true;
   }
 }

@@ -9,6 +9,7 @@ class Reg2 extends Scene {
   int currentRow = 0, currentCol = 0, rectWidth, rectHeight;
   Scene9Cell[][] table;
   PImage img1, img2;
+  boolean resetCam;
 
   Reg2() {
     name = "reg2";
@@ -22,6 +23,7 @@ class Reg2 extends Scene {
       //cam.reset(0);
       //buildTable();
     }
+    resetCam = true;
   }
 
   void buildTable() {
@@ -66,9 +68,14 @@ class Reg2 extends Scene {
   }
 
 
-  void draw() {
+  void draw2d() {
 
-    preDraw2d();
+    //preDraw2d();
+    
+    if (resetCam){
+      resetCam = false;
+      camera();
+    }
 
     float hitVal;
     Scene9Cell cell;
@@ -100,7 +107,7 @@ class Reg2 extends Scene {
       }
     }
 
-    postDraw2d();
+    //postDraw2d();
   }
 }
 
