@@ -37,7 +37,7 @@ public class Nudges extends Scene {
     Nudge unit = new Nudge();
     unit.pos = new PVector(random(-extents, extents)*a, floor, random(-extents, extents)*a);
     unit.vel = new PVector(0, 0, 0);
-    unit.accel = new PVector(0, -0.01, 0);  
+    unit.accel = new PVector(0, -0.015, 0);  
     unit.fadeRate= fade;
     unit.initRotateY = random(-PI, PI)*a*0.5;
     unit.rotation = b * 0.01;
