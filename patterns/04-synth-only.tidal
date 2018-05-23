@@ -6,20 +6,25 @@ hush
 
 do
     let chan = "5"
-    let dis p = discretise (1/4) $ p
-    let chan2 = (dis $ shift' 3009 $ choose [1,2,3,4])
-    let mod p = shift $ degradeBy 0.7 $ shift $ density 1 $ p
-    d1 $ stdmidinudge $ (|+| note "-24") $ sometimesBy 0.2 (|+| note "12") $ 
-            mod $ s "midi*8" # note "[0 7]/32" # midichan chan
-    d2 $ stdmidinudge $ 
-            mod $ stack [
+    let dis p = discretise (1/8) $ p
+    let chan2 = (dis $ shift' 3009 $ choose [5])
+    let alter f p = sometimesBy 0.24 (f) $ p
+    let nnn = nudge (scale 0 0 $ slow 16 sine)
+    let mod p = shift $ degradeBy 0.2 $ shift $ whenmod 16 8 (density 2) $ whenmod 10 5 (density 0.5) $ density 1 $ p
+    d1 $ stdmidinudge $ (|+| note "0") $ alter (|+| note "12") $ 
+            mod $ s "midi*8" # note "[0,-3]" # midichan chan
+    d2 $ stdmidinudge $
+            mod $ gain "1*8" # stack [
         control (dis $ scale 0 127 $ rand) # ctlNum "1",
-        control (dis $ scale 0 127 $ shift' 112 $ rand) # ctlNum "12",
-        control (dis $ scale 0 127 $ shift' 113 $ rand) # ctlNum "13",
-        control (dis $ scale 0 127 $ shift' 114 $ rand) # ctlNum "14",
-        control (dis $ scale 0 127 $ shift' 115 $ rand) # ctlNum "15",
-        control (dis $ scale 0 127 $ shift' 116 $ rand) # ctlNum "16",
+        control (dis $ scale 120 127 $ shift' 112 $ rand) # ctlNum "12",
+        control (dis $ scale 50 80 $ shift' 113 $ rand) # ctlNum "13",
+        control (dis $ scale 120 127 $ shift' 114 $ rand) # ctlNum "14",
+        control (dis $ scale 50 80 $ shift' 115 $ rand) # ctlNum "15",
+        control (dis $ scale 10 50 $ shift' 116 $ rand) # ctlNum "16",
         control (dis $ scale 0 127 $ shift' 117 $ rand) # ctlNum "17",
+        control (dis $ scale 0 127 $ shift' 118 $ rand) # ctlNum "18",
+        control (dis $ scale 0 127 $ shift' 119 $ rand) # ctlNum "19",
+        control (dis $ scale 0 80 $ shift' 120 $ rand) # ctlNum "20",
         control (dis $ scale 0 127 $ shift' 1 $ rand) # ctlNum "2",
         control (dis $ scale 0 127 $ shift' 2 $ rand) # ctlNum "3",
         control (dis $ shift' 3 $ choose[0,127]) # ctlNum "10",
@@ -28,20 +33,19 @@ do
         control (dis $ scale 0 127 $ shift' 5 $ rand) # ctlNum "9",
         control (dis $ scale 0 127 $ shift' 6 $ rand) # ctlNum "6",
         control (dis $ scale 0 127 $ shift' 7 $ rand) # ctlNum "7" ] 
-            # s "midi" # midichan chan # midicmd "control" 
-    d3 $ stdmidinudge $ sometimesBy 0.2 (|+| control "127") $ 
+            # s "midi" # midichan chan # midicmd "control"
+    d3 $ stdmidinudge $ alter (|+| control "127") $ 
             mod $ control "0*8" # ctlNum 5 # s "midi" # midichan chan # midicmd "control"
-    vis $ stdvisnudge $ sometimesBy 0.2 (|=| hit "0") $ 
-            mod $ hit "1*8" 
-        # view (dis $ choose [ "cubePops", "cubePops", "maze", "rain", "rainB", "nodes", "nodes", "reg1", "reg1B", "reg2", "reg2B", "cubeGridB", "cubeGrid", "vectorGrid", "vectorGridB"])
-        # a (dis $ scale 0 1 $ slow 30 rand)
-        # b (dis $ scale 0 1 $ slow 31 rand)
-        # c (dis $ scale 0 1 $ slow 32 rand)
-        # d (dis $ scale 0 1 $ slow 131 rand)
-        # fade (scale 0 1 $ slow 29 sine)
+    vis $ stdvisnudge $ alter (|=| hit "0") $ mod $ hit "1*8"       
+        # view (dis $ choose ["nodes", "cubeFractal", "reg1", "reg2", "cubePops", "reg1B", "reg2B", "maze", "vectorGrid", "cubeGrid"])
+        # a (dis $ scale 0 1 $ shift' 1000 rand)
+        # b (dis $ scale 0 1 $ shift' 1001 rand)
+        # c (dis $ scale 0 1 $ shift' 1002 rand)
+        # d (dis $ scale 0 1 $ shift' 1003 rand)
+        # fade (dis $ scale 0 1 $ shift' 1004 rand)
         # red (scale 0 1 $ slow 20 sine)
         # green (scale 0 1 $ slow 19 sine)
-        # blue (scale 0 1 $ slow 18 sine)
+        # blue (scale 0 1 $ slow 18 sine) 
 
 
 vis $ hit "1*8" # view "nodes"

@@ -20,24 +20,37 @@ d1 $ stdmidinudge $ stack [
     gain "1.15*4" 
         # note "[{0 -12 0 12 -24}%1,{2 5 14 -10 9}%1, {4 16 11}%1]/16",
     -- harmor ab
-    ctlNum "5*4" # control (scale 0 127 $ slow 25.1 sine) # midicmd "control",
+    ctlNum "5*4" # control (scale 127 127 $ slow 25.1 sine) # midicmd "control",
     ctlNum "1*4" # control (scale 0 127 $ slow 32.1 sine) # midicmd "control",
     ctlNum "2*4" # control (scale 0 127 $ slow 33.1 sine) # midicmd "control",
     ctlNum "3*4" # control (scale 0 127 $ slow 30.1 sine) # midicmd "control",
     ctlNum "10*4" # control (scale 0 127 $ slow 29.1 sine) # midicmd "control"  ] # s "midi" # midichan chan # nudging
 
-d2 $ s "k*4" # n "2" # speed (scale 0.8 1.2 $ slow 19 sine) 
-    # lpf (scale 100 10000 $ slow 17 sine) # resonance (scale 0 0.1 $ slow 18 sine) # nudging # gain "0.95"
+d2 $ s "k*4" # n "2" 
+    # speed (scale 0.8 1.2 $ slow 19 sine) 
+    # lpf (scale 100 10000 $ slow 17 sine) 
+    # nudging # gain "0.8"
 
     vis $ stdvisnudge $ shift $ hit "1*4" 
-        # view "[nudges]"
-        # pos (scale 0 0 $ slow 26 tri)
-        # rot (scale 0 0.9 $ slow 27 tri)
+        # view "nudges"
+        # pos (scale 0 0.01 $ slow 26 tri)
+        # rot (scale 0 1 $ slow 27 tri)
         # growth (scale 0 0.3 $ slow 28 tri)
-        # fade 0.65
+        # fade 0.6
         # red (scale 0 1 $ slow 23.133 sine)
         # green (scale 0 1 $ slow 24.471 sine)
         # blue (scale 0 1 $ slow 25.22 sine)
         # nudging
 
 hush
+
+d1 $slow 2 $ s "k cp"
+
+vis $ slow 2 $  stdvisnudge $ hit "0 1" # view "nudges"
+    # pos (scale 0 0.01 $ slow 26 tri)
+    # rot (scale 0 0 $ slow 27 tri)
+    # growth (scale 0 0 $ slow 28 tri)
+    # fade 0.6
+    # red "0 1"
+    # green "0"
+    # blue "1"

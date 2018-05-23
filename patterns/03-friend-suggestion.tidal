@@ -6,8 +6,8 @@ hush
 
 do
     let dis p = discretise (1/4) $ p
-    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [1.0,1.1..3]) $
-                    spaceOut (map (1/) [1,1.25..3]) $
+    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [1.0,1.1..4]) $
+                    spaceOut (map (1/) [1,1.25..5]) $
                     degradeBy 0.25 $
                     shift $ p
     d1 $ stdmidinudge $ timemod $ note "0*2" # sound "midi" # midichan friendChan

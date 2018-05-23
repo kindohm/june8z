@@ -15,5 +15,8 @@
 15 f2width
 16 unison count
 17 unison type
+18 phaser mix
+19 phaser oct-hz-harm
+20 blur harm
 
 92 active scene
