@@ -1,0 +1,59 @@
+bps (220/120)
+
+
+hush
+
+do
+    let chan = "5"
+    let dis p = discretise (1/16) $ p
+    let chan2 = (dis $ shift' 3009 $ choose [5])
+    let alter f p = sometimesBy 0.25 (f) $ p
+    let nnn = nudge (scale 0 0 $ slow 16 sine)
+    let mod p = slow 1 $ shift $ degradeBy 0.02 $ shift $ whenmod 16 8 (density 2) $ whenmod 10 5 (density 0.5) $ density 1 $ p
+    let vary' a min max p = (|+| control (dis $ shift' a $ choose[min..max])) $ p
+    let vary a p = vary' a (-3) 3 $ p
+    d1 $ stdmidinudge $ (|+| note "0") $ alter (|+| note "12") $ 
+            mod $ s "midi*8" # note "[0,-3]" # midichan chan
+    d2 $ stdmidinudge $
+            mod $ gain "1*8" # stack [
+                vary 504 $ control 30 # ctlNum 5, -- pitch a
+                vary 505 $ control 3 # ctlNum 6, -- pitch d
+                vary' 506 0 20 $ control 64 # ctlNum 7, -- pitch s
+                vary 507 $ control 50 # ctlNum 8, -- pitch r
+                vary 508 $ control 70 # ctlNum 9,  -- filter a
+                vary 509 $ control 64 # ctlNum 10, -- filter d
+                vary 510 $ control 64 # ctlNum 11, -- filter s
+                vary 511 $ control 64 # ctlNum 12, -- filter r
+                vary 512 $ control 64 # ctlNum 13, -- filter cutoff
+                vary 513 $ control 40 # ctlNum 14, -- filter env
+                vary 514 $ control 30 # ctlNum 15, -- ph width
+                vary 515 $ control 39 # ctlNum 16, -- ph offset
+                vary 516 $ control 40 # ctlNum 17, -- ph w a
+                vary 517 $ control 50 # ctlNum 18, -- ph w d
+                vary 518 $ control 80 # ctlNum 19, -- ph w s
+                vary 519 $ control 40 # ctlNum 20, -- ph w r
+                vary 520 $ control 50 # ctlNum 21, -- ph offset a
+                vary 521 $ control 80 # ctlNum 22, -- ph offset d
+                vary 522 $ control 50 # ctlNum 23, -- ph offset s
+                vary 523 $ control 60 # ctlNum 24
+                        ] 
+            # s "midi" # midichan chan # midicmd "control"
+    d3 $ stdmidinudge $ alter (|+| control "127") $ 
+            mod $ control "0*8" # ctlNum 100 # s "midi" # midichan chan # midicmd "control"
+    vis $ stdvisnudge $ alter (|=| hit "0") $ mod $ hit "1*8"       
+        # view (dis $ choose ["nodes", "cubeFractal", "reg1", "reg2", "cubePops", "reg1B", "reg2B", "maze", "vectorGrid", "cubeGrid"])
+        # a (dis $ scale 0 1 $ shift' 1000 rand)
+        # b (dis $ scale 0 1 $ shift' 1001 rand)
+        # c (dis $ scale 0 1 $ shift' 1002 rand)
+        # d (dis $ scale 0 1 $ shift' 1003 rand)
+        # fade (dis $ scale 0 1 $ shift' 1004 rand)
+        # red (scale 0 1 $ slow 20 sine)
+        # green (scale 0 1 $ slow 19 sine)
+        # blue (scale 0 1 $ slow 18 sine) 
+
+    hush
+
+do
+    let chan = "5"
+    d1 $ control "0*4" # ctlNum 32 # s "midi" # midichan chan # midicmd "control"
+    

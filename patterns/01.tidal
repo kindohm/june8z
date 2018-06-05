@@ -16,6 +16,7 @@ hush
 
 d1 $ stdmidinudge $ stack [
     -- harmor
+    (|+| note "0") $
     (|+| note "-3") $
     gain "1.15*4" 
         # note "[{0 -12 0 12 -24}%1,{2 5 14 -10 9}%1, {4 16 11}%1]/16",
@@ -26,10 +27,11 @@ d1 $ stdmidinudge $ stack [
     ctlNum "3*4" # control (scale 0 127 $ slow 30.1 sine) # midicmd "control",
     ctlNum "10*4" # control (scale 0 127 $ slow 29.1 sine) # midicmd "control"  ] # s "midi" # midichan chan # nudging
 
-d2 $ s "k*4" # n "2" 
+d2 $ s "k*4" # n "3" 
     # speed (scale 0.8 1.2 $ slow 19 sine) 
     # lpf (scale 100 10000 $ slow 17 sine) 
     # nudging # gain "0.8"
+    # release "0.1"
 
     vis $ stdvisnudge $ shift $ hit "1*4" 
         # view "nudges"
