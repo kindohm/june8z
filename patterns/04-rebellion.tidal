@@ -1,18 +1,20 @@
 bps (145/120)
 
+hush
+
 do
-    let pat  = "{1       ~ ~ 1 ~ 1 ~ ~}%16"
-        cpp  = "{1       ~ ~ ~ ~ ~ ~ ~}%16"
-        vpat = "{[0 1]/2 ~ ~ 1 ~ 1 ~ ~}%16"
+    let pat  = "{1       ~ ~ 1 ~ 1 ~ 1 ~ 1 ~ ~}%16"
+        cpp  = "{1       ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~}%16"
+        vpat = "{[0 1]/2 ~ ~ 1 ~ 1 ~ 1 ~ 1 ~ ~}%16"
         chan = "4"
-        mod p = degradeBy 0.0 $ p
+        mod p = degradeBy 0.5 $ move $ p
     d1 $ mod $ 
       stack [
         gtfo $ gain pat # n (discretise (1/4) $ irand 70) # s "rebsy" # cut 877,
-        gain (pat) # s "rebbd" # cut 1011 # lpf "2000",
+        gain (pat) # s "rebbd" # cut 1011 # lpf "1000",
         slow 2 $ (|*| gain "1") $ gain cpp # s "rebcp" # cut 101,
         gtfo $ whenmod 20 15 (gtfo) $ n "{0 0 1}%16" # s "rebch" # cut 200 # gain 0.8,
-        gtfo $ ((0.0625) <~) $ gain pat # s "rebtom"] # orbit "0"
+        gtfo $ whenmod 16 8 (gtfo) $ ((0.0625) <~) $ gain pat # s "rebtom"] # orbit "0"
     d2 $ stdmidinudge $ mod $ (|*| gain "1.15") $ (|+| note "0") $ gain pat # note "[0,2,4]" # s "midi" # midichan chan 
     d3 $ stdmidinudge $ mod $ stack [
             gain pat # ctlNum "10" # control (scale 0 127 $ slow 33 tri),
@@ -20,13 +22,17 @@ do
             gain pat # ctlNum "2" # control (scale 0 127 $ slow 35 tri),
             gain pat # ctlNum "3" # control (scale 0 127 $ slow 36 tri)] 
         # s "midi" # midichan chan # midicmd "control"
-    vis $ stdvisnudge $ mod $ 
+    vis $ (|+| nudge "-0.1") $ stdvisnudge $ mod $ 
         hit vpat # view "cubePops"
-        # a (scale 0 1 $ slow 40 sine)
-        # b (scale 0 1 $ slow 41 sine)
+        # a (scale 0 1 $ slow 37 sine)
+        # b (scale 0 1 $ slow 36 sine)
         # c (scale 0 0.8 $ slow 19 sine)
         # d (scale 0 1 $ slow 18 sine)
         # fade 1
 
+
+d1 $ sound "rebbd"
+
+vis $ stdvisnudge $ hit "0" # view "cubePops"
 
     hush

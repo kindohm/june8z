@@ -10,15 +10,16 @@ do
                     spaceOut (map (1/) [1,1.25..5]) $
                     degradeBy 0.25 $
                     shift $ p
-    d1 $ stdmidinudge $ timemod $ note "0*2" # sound "midi" # midichan friendChan
-    d2 $ stdmidinudge $  stack [
+    let mod p = degradeBy 0 $ p
+    d1 $ mod $ stdmidinudge $ timemod $ note "0*2" # sound "midi" # midichan friendChan
+    d2 $ mod $ stdmidinudge $  stack [
         timemod $ ctlNum "1*2" # control (scale 0 127 $ slow 30 tri),
         timemod $ ctlNum "2*2" # control (scale 0 127 $ slow 31 tri),
         timemod $ ctlNum "3*2" # control (scale 0 80 $ slow 32 tri),
         timemod $ ctlNum "5*2" # control "[0 127]/20"] 
             # sound "midi" # midichan friendChan # midicmd "control"
-    d3 $ timemod $ (|+| n "[0 1]/20") $ n "[0 [0 2]/2]" # s "friend" # lpf "[1000 [1000 10000]/2]"
-    vis $ stdvisnudge $ timemod $ 
+    d3 $ mod $ timemod $ (|+| n "[0 1]/20") $ n "[0 [0 2]/2]" # s "friend" # lpf "[10000 [10000 10000]/2]"
+    vis $ mod $ stdvisnudge $ timemod $ 
         hit "0 [0 1]/2]" # view "[vectorGrid vectorGridB]/20"
         # a (scale 0 0.8 $ slow 20 sine)
         # b (scale 0 0.8 $ slow 21 sine)

@@ -1,7 +1,5 @@
 -- asdf
 
-
-
 let discretise = _discretise 
     rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
     rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
@@ -83,7 +81,7 @@ let discretise = _discretise
     gtfofx p = (# control 0) $ p
     gtfofxhigh p = (# control 127) $ p
     stdmidinudge p = (|+| nudge "0.2") $ p
-    stdvisnudge p = (|+| nudge "0.5") $ p
+    stdvisnudge p = (|+| nudge "0.6") $ p
 
 
 

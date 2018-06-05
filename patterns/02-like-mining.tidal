@@ -1,5 +1,7 @@
 bps (230/120)
 
+hush
+
 -- done in all2. use `patch` to switch between scenes. 2 + 3.
 
 do
@@ -33,10 +35,11 @@ do
                 # delayfb (scale 0.5 0.95 $ slow 21 tri) 
                 # delay (scale 0.4 0.8 $ slow 203 rand)] # s "likekit" # orbit "0"
     vis $ stdvisnudge $ timemod $ 
-        stack [hit "0(3,8)", hit "1/2"] # view "cubeFractal"
-        # a (scale 0 0.1 $ slow 20 sine)
-        # b (scale 0 1 $ slow 21 sine)
+        stack [hit "1/2", hit "0(3,8)"] # view "cubeFractal"
+        # a (scale 0 1 $ slow 20 sine) --velocity
+        # b (scale 0 0.1 $ slow 21 sine) --rot
         # fade (scale 0 0.3 $ slow 19 sine)
-       
+        # red (scale 0 1 $ slow 23.133 rand)
+        # green (scale 0 1 $ slow 24.471 rand)
+        # blue (scale 0 1 $ slow 25.22 rand)
 
-        hush
