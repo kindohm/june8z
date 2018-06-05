@@ -52,9 +52,9 @@ public class Nodes extends Scene {
     newNode.rotVelocity = new PVector(random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b);
 
     if (newNode.high) {
-      newNode.nodeColor = color(255, random(0, 255), random(0, 255));
+      newNode.nodeColor = color(map(data.oscBlue, 0, 1, 0, 255), map(data.oscGreen, 0, 1, 0, 255), map(data.oscRed, 0, 1, 0, 255));
     } else {
-      newNode.nodeColor = color(random(0, 255), random(0, 255), 255);
+      newNode.nodeColor = color(map(data.oscRed, 0, 1, 0, 255), map(data.oscGreen, 0, 1, 0, 255), map(data.oscBlue, 0, 1, 0, 255));
     }
 
     newNode.rotateX = random(-1.5, 1.5);

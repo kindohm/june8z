@@ -36,6 +36,9 @@ public class CubeFractal extends Scene {
     float a = data.oscA;
     float b = data.oscB;
     float fade = data.oscFade;
+    float red = data.oscRed;
+    float green = data.oscGreen;
+    float blue = data.oscBlue;
 
     if (nodes[nodes.length -1] != null) {
       reset();
@@ -56,9 +59,9 @@ public class CubeFractal extends Scene {
     newNode.rotVelocity = new PVector(random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b, random(-maxRotVel, maxRotVel) * b);
 
     if (newNode.high) {
-      newNode.nodeColor = color(255, random(0, 255), random(0, 255));
+      newNode.nodeColor = color(map(blue,0,1,0,255), map(green, 0, 1, 0, 255), map(red,0,1,0,255));
     } else {
-      newNode.nodeColor = color(random(0, 255), random(0, 255), 255);
+      newNode.nodeColor = color(map(red,0,1,0,255), map(green,0,1,0,255), map(blue,0,1,0,255));
     }
 
     if (lastNode != null) {
