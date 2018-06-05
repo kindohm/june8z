@@ -2,9 +2,9 @@ class Reg1 extends Scene {
 
   int rows = 10;
   int cols = 40;
-  int minCols = 1;
+  int minCols = 2;
   int maxCols = 10;
-  int minRows = 1;
+  int minRows = 2;
   int maxRows = 10;
   int currentRow = 0, currentCol = 0, rectWidth, rectHeight;
   float stroke, fadeRate;
@@ -101,7 +101,6 @@ class Reg1 extends Scene {
           strokeVal = cell.getStroke();
           opacity = cell.getOpacity();
         } else {
-          println("reg1 wtf");
           hitVal = 0;
           strokeVal = 5;
           opacity = 0;

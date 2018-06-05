@@ -5,11 +5,11 @@ class VectorGrid extends Scene {
   int cols = 1;
   int slots = 1;
   int minCols = 1;
-  int maxCols = 20;
+  int maxCols = 15;
   int minRows = 1;
-  int maxRows = 20;
+  int maxRows = 15;
   int minSlots = 1;
-  int maxSlots = 20;
+  int maxSlots = 15;
   float spaceSize = 350;
   float currentHitVal = 0;
   float vary = 0;

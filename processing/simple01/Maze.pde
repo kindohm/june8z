@@ -15,7 +15,7 @@ public class Maze extends Scene {
   float rotAmount = 0;
   float rotation = 0;
   boolean resetCam;
-  
+
   Maze() {
     cellHeight = height / (rows * 0.8);
     cellWidth = width / (cols * 0.8);
@@ -63,14 +63,14 @@ public class Maze extends Scene {
     reconfigure(c);
     opacity = 255;
     fadeAmount = fade;
-    rotAmount = map(d, 0, 1, -0.05, 0.05);
+    rotAmount =0;// map(d, 0, 1, -0.05, 0.05);
   }
 
 
   void draw2d() {
     //preDraw2d();
-    
-    if (resetCam){
+
+    if (resetCam) {
       resetCam = false;
       camera();
     }
@@ -83,12 +83,12 @@ public class Maze extends Scene {
     strokeWeight(0);
 
     mahCells = cells.clone();
-    
+
     rotation += rotAmount;
 
     for (int c = 0; c < mahCells.length; c++) {
       for (int r = 0; r < mahCells[c].length; r++) {
-       
+
         boolean val = mahCells[c][r];
         if (val) {
           translate(c*cellWidth, r * cellHeight);
@@ -136,7 +136,7 @@ public class MazeB extends Maze {
     reconfigure(c);
     opacity = 255;
     fadeAmount = fade;
-    rotAmount = map(d, 0, 1, -0.05, 0.05);
+    rotAmount = 0;// map(d, 0, 1, -0.05, 0.05);
   }
 
   void drawThing() {
