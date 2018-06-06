@@ -9,7 +9,7 @@ ArrayList<Scene> scenesList = new ArrayList<Scene>();
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "nodes";
+String sceneName = "logs";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -45,6 +45,7 @@ void setup() {
   //scenesList.add(new Carpet());
   //scenesList.add(new CarpetB());
   scenesList.add(new Nudges());
+  scenesList.add(new Logs());
 
   for (int i = 0; i < scenesList.size(); i++) {
     scenesHash.put(scenesList.get(i).getName(), scenesList.get(i));
@@ -140,9 +141,9 @@ void doHit() {
 
   Scene scene = getScene();
   if (mouseButton == LEFT) {
-    scene.hit(HitData.Make(1, a, b, c, d, e, 0.5, 0, 0, 0));
+    scene.hit(HitData.Make(1, a, b, c, d, e, 0.5, 1, 0, 0));
   } else {
-    scene.hit(HitData.Make(0, a, b, c, d, e, 0.5, 0, 0, 0));
+    scene.hit(HitData.Make(0, a, b, c, d, e, 0.5, 0, 0, 1));
   }
 }
 
