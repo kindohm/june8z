@@ -200,5 +200,3 @@ do
             # fade (discretise 1  $ scale 0 0.1 $ shift' 1004 rand)
             # view "[logs nodes cubeFractal reg1 reg1B nudges reg2 reg2B cubePops maze vectorGrid vectorGridB]/12"
 
-
-hush
