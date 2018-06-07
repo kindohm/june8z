@@ -23,7 +23,6 @@ public class Logs extends Scene {
     row = 0;
     col = 0;
     logs = new Log[cols][rows];
-    cam.reset(0);
   }
 
   void init(String lastScene) {
@@ -58,9 +57,9 @@ public class Logs extends Scene {
       reset();
     }
 
-    data.oscGreen = random(0, 1);
-    data.oscRed = random(0, 1);
-    data.oscBlue = random(0, 1);
+    //data.oscGreen = random(0, 1);
+    //data.oscRed = random(0, 1);
+    //data.oscBlue = random(0, 1);
 
     Log newLog = new Log();
     if (hitVal > 0.5) {
