@@ -29,9 +29,6 @@ MIDIClient.list; // to check, which are there, you can query them
 )
 
 ~midiOut = MIDIOut.newByName("Focusrite USB MIDI", "Focusrite USB MIDI"); // substitute your own device here
-//~midiOut = MIDIOut.newByName("LoopBe Internal MIDI", "LoopBe Internal MIDI");
 ~midiOut.latency = 0.45;
 ~dirt.soundLibrary.addMIDI(\midi, ~midiOut);
 
-
-// ~dirt.loadSoundFiles("C:\\Users\\kindohm\\studio\\tidal-samples\\live-2016\\*");

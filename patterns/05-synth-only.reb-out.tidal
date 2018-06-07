@@ -6,14 +6,16 @@ do
     let chan = "4"
     let vals2 = [0.1,0.125..1]
     let vals = [1,0.975..0.1]
-    let mod2 p = density 4 $ spaceOut vals $ p
-    let mod3 p = density 4 $ spaceOut (vals ++ vals2) $ p
-    let mod p = density 4 $ spaceOut [0.6,0.58..0.1] $ p
+    let mod2 p = density 8 $ spaceOut vals $ p
+    let mod p = (1 <~) $ degradeBy 0.9 $ density 8 $ spaceOut (vals ++ vals2) $ p
+    let mod4 p = density 4 $ spaceOut [0.6,0.58..0.1] $ p
     let pat = "1*2"
     let dis p = discretise (1/8) $ p
-    let alter f p = sometimesBy 0.2 (f) $ p
+    let alter f p = sometimesBy 0.5 (f) $ p
     d2 $ stdmidinudge $ mod $ (|*| gain "1.15") $ (|+| note "0") $ gain pat # note "[0,2,4]" # s "midi" # midichan chan
     d3 $ stdmidinudge $ alter (|*| control "0.85") $ stack [
+            (# control (scale 0 127 $ slow 33.55 tri)) $ mod $ gain pat # ctlNum 6,
+            (# control (scale 0 127 $ slow 34.736 tri)) $ mod $ gain pat # ctlNum 7,
             (# control (scale 0 127 $ slow 33 tri)) $ mod $ gain pat # ctlNum "10",
             (# control (scale 0 127 $ slow 34 tri)) $ mod $ gain pat # ctlNum "1",
             (# control (scale 0 127 $ slow 35 tri)) $ mod $ gain pat # ctlNum "2",
@@ -23,7 +25,7 @@ do
         (# rel (scale 0.1 1 $ slow 32 tri)) $
         (# lpf (scale 80 6000 $ slow 31 tri)) $ 
                 mod $ (|*| gain "0.95") $ gain pat # s "[rebbd rebsd rebcy rebrs]/4" # cut "2343" # orbit 0
-    vis $ (|+| nudge "-0.0") $ stdvisnudge $ 
+    vis $ (|+| nudge "-0.05") $ stdvisnudge $ 
         (# red (scale 0 1 $ slow 11 sine)) $
         (# green (scale 0 1 $ slow 13 sine)) $
         (# blue (scale 0 1 $ slow 12 sine) ) $
@@ -33,9 +35,7 @@ do
             # c (discretise 1  $ scale 0 1 $ shift' 1002 rand)
             # d (discretise 1  $ scale 0 1 $ shift' 1003 rand)
             # fade (discretise 1  $ scale 0 0.1 $ shift' 1004 rand)
-            # view "cubeFractal"
-            
-            # view "[nodes cubeFractal reg1 reg1B nudges reg2 reg2B cubePops maze vectorGrid vectorGridB]/11"
+            # view "[logs nodes cubeFractal reg1 reg1B nudges reg2 reg2B cubePops maze vectorGrid vectorGridB]/12"
 
 
             # view (discretise 1 $ choose ["nodes", "cubeFractal", "reg1", "reg2", "cubePops", "reg1B", "reg2B", "maze", "vectorGrid", "cubeGrid"])

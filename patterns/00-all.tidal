@@ -29,13 +29,13 @@ do
     d2 $ gtfo $ s "k*4" # n "3" 
         # speed (scale 0.8 1.2 $ slow 19 sine) 
         # lpf (scale 100 10000 $ slow 17 sine) 
-        # nudging # gain "0.85"
-        # release "0.2"
+        # nudging # gain "0.8"
+        # release "0.1"
     vis $ stdvisnudge $ shift $ hit "1*4" 
         # view "nudges"
-        # pos (scale 0 0.01 $ slow 26.66 tri)
-        # rot (scale 0 0.1 $ slow 27.25 tri)
-        # growth (scale 0 0.1 $ slow 28.3 tri)
+        # pos (scale 0 0.01 $ slow 26 tri)
+        # rot (scale 0 0.1 $ slow 27 tri)
+        # growth (scale 0 0.1 $ slow 28 tri)
         # fade 0.2
         # red (scale 0 1 $ slow 23.133 sine)
         # green (scale 0 1 $ slow 24.471 sine)
@@ -52,7 +52,7 @@ bps (230/120)
 do
     let patch = "[2 3]/8" -- 2 and 3
     let kitpatch = "[0 3]/8" -- 0 and 3
-    let timemod p = density 1 $ degradeBy 0.5 $ slow (discretise (1/3) $ shift' 100 $ choose [1,1.1..5]) $
+    let timemod p = degradeBy 0.5 $ slow (discretise (1/3) $ shift' 100 $ choose [1,1.1..3]) $
                     spaceOut (map (1/) [1,1.25..4]) $
                     degradeBy 0.2 $
                     shift $ p
@@ -72,7 +72,7 @@ do
         ctlNum "11(3,8)" # control (scale 0 127 $ shift' 203 rand)
         ] # s "midi" # midichan patch # midicmd "control" 
     -- drums
-    d3 $ timemod $ (|+| n kitpatch) $
+    d3 $ gtfo $ timemod $ (|+| n kitpatch) $
         stack [
             n "0(3,8)",
             n "2(3,8)",
@@ -80,12 +80,12 @@ do
                 # delayt (scale 0.001 0.1 $ slow 20 tri) 
                 # delayfb (scale 0.5 0.95 $ slow 21 tri) 
                 # delay (scale 0.4 0.8 $ slow 203 rand)] 
-            # s "likekit" # orbit "0" # pan (shift' 383 $ rand)
+            # s "likekit" # orbit "0"
     vis $ stdvisnudge $ timemod $ 
         stack [hit "1/2", hit "0(3,8)"] # view "cubeFractal"
         # a (scale 0 0.01 $ slow 20 sine) --velocity
         # b (scale 0 0.01 $ slow 21 sine) --rot
-        # fade (scale 0 0.2 $ slow 22.66 sine)
+        # fade (scale 0 0.1 $ slow 19 sine)
         # red (scale 0 1 $ slow 23.133 rand)
         # green (scale 0 1 $ slow 24.471 rand)
         # blue (scale 0 1 $ slow 25.22 rand)
@@ -101,11 +101,11 @@ bps (140/120)
 do
     let friendChan = "1"
     let dis p = discretise (1/4) $ p
-    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [1.0,1.1..5]) $
+    let timemod p = slow (discretise (1/2) $ shift' 100 $ choose [1.0,1.1..4]) $
                     spaceOut (map (1/) [1,1.25..5]) $
                     degradeBy 0.25 $
                     shift $ p
-    let mod p = degradeBy 0 $ p
+    let mod p = degradeBy 0.5 $ p
     d1 $ stdmidinudge $ mod $ timemod $ note "0*2" # sound "midi" # midichan friendChan
     d2 $ stdmidinudge $ mod $  stack [
         timemod $ ctlNum "1*2" # control (scale 0 127 $ slow 30 tri),
@@ -136,11 +136,11 @@ do
         chan = "4"
         mod p = id $ p
     -- drums
-    d1 $ gtfo $ mod $ 
+    d1 $gtfo $ mod $ 
       stack [
-        gain (pat) # s "rebbd" # cut 1011 # lpf "3000",
+        gain (pat) # s "rebsd" # cut 1011 # lpf "10000",
         slow 2 $ (|*| gain "1") $ gain cpp # s "rebcp" # cut 101,
-        gtfo $ whenmod 12 6 (gtfo) $ n "{0 0 1}%16" # s "rebch" # cut 200 # gain 0.8,
+        gtfo $ whenmod 20 15 (gtfo) $ n "{0 0 1}%16" # s "rebch" # cut 200 # gain 0.8,
         gtfo $ whenmod 16 8 (gtfo) $ ((0.0625) <~) $ gain pat # s "rebtom"] # orbit "0"
     d2 $ stdmidinudge $ mod $ (|*| gain "1.15") $ (|+| note "0") $ gain pat # note "[0,2,4]" # s "midi" # midichan chan 
     d3 $ stdmidinudge $ mod $ stack [
@@ -151,8 +151,8 @@ do
         # s "midi" # midichan chan # midicmd "control"
     vis $ (|+| nudge "-0.1") $ stdvisnudge $ mod $ 
         hit vpat # view "cubePops"
-        # a (scale 0.1 1 $ slow 37 sine)
-        # b (scale 0.1 1 $ slow 36 sine)
+        # a (scale 0 1 $ slow 37 sine)
+        # b (scale 0 1 $ slow 36 sine)
         # c (scale 0 0.8 $ slow 19 sine)
         # d (scale 0 1 $ slow 18 sine)
         # fade 1
@@ -166,10 +166,10 @@ bps (220/120)
 
 do
     let chan = "4"
-    let vals2 = [0.1,0.15..1]
-    let vals = [1,0.95..0.1]
-    let mod2 p = degradeBy 0.5 $ density 4 $ spaceOut vals $ p
-    let mod p = shift $ degradeBy 0.9 $ density 8 $ spaceOut (vals ++ vals2) $ p
+    let vals2 = [0.1,0.125..1]
+    let vals = [1,0.975..0.1]
+    let mod2 p = density 4 $ spaceOut vals $ p
+    let mod p = density 4 $ spaceOut (vals ++ vals2) $ p
     let mod4 p = density 4 $ spaceOut [0.6,0.58..0.1] $ p
     let pat = "1*2"
     let dis p = discretise (1/8) $ p
@@ -177,14 +177,14 @@ do
     d2 $ stdmidinudge $ mod $ (|*| gain "1.15") $ (|+| note "0") $ gain pat # note "[0,2,4]" # s "midi" # midichan chan
     d3 $ stdmidinudge $ alter (|*| control "0.85") $ stack [
             (# control (scale 0 127 $ slow 33.55 tri)) $ mod $ gain pat # ctlNum 6,
-            (# control (scale 0 127 $ slow 134.736 tri)) $ mod $ gain pat # ctlNum 7,
+            (# control (scale 0 127 $ slow 34.736 tri)) $ mod $ gain pat # ctlNum 7,
             (# control (scale 0 127 $ slow 33 tri)) $ mod $ gain pat # ctlNum "10",
             (# control (scale 0 127 $ slow 34 tri)) $ mod $ gain pat # ctlNum "1",
             (# control (scale 0 127 $ slow 35 tri)) $ mod $ gain pat # ctlNum "2",
             (# control (scale 0 127 $ slow 36 tri)) $ mod $ gain pat # ctlNum "3" ] 
         # s "midi" # midichan chan # midicmd "control"
     -- samps
-    d1 $ alter (|*| speed "2") $
+    d1 $ gtfo $ alter (|*| speed "2") $
         (# rel (scale 0.1 1 $ slow 32 tri)) $
         (# lpf (scale 80 6000 $ slow 31 tri)) $ 
                 mod $ (|*| gain "0.95") $ gain pat # s "[rebbd rebsd rebcy rebrs]/4" # cut "2343" # orbit 0
