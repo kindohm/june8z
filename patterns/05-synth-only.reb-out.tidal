@@ -6,8 +6,8 @@ do
     let chan = "4"
     let vals2 = [0.1,0.125..1]
     let vals = [1,0.975..0.1]
-    let mod2 p = density 8 $ spaceOut vals $ p
-    let mod p = (1 <~) $ degradeBy 0.9 $ density 8 $ spaceOut (vals ++ vals2) $ p
+    let mod2 p = density 4 $ spaceOut vals $ p
+    let mod p = (1 <~) $ degradeBy 0.0 $ density 4 $ spaceOut (vals ++ vals2) $ p
     let mod4 p = density 4 $ spaceOut [0.6,0.58..0.1] $ p
     let pat = "1*2"
     let dis p = discretise (1/8) $ p

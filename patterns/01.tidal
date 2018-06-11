@@ -35,8 +35,8 @@ do
     vis $ stdvisnudge $ shift $ hit "1*4" 
         # view "nudges"
         # pos (scale 0 0.01 $ slow 26 tri)
-        # rot (scale 0.1 0.99 $ slow 27 tri)
-        # growth (scale 0 0.8 $ slow 28 tri)
+        # rot (scale 0 0.1 $ slow 27 tri)
+        # growth (scale 0 0.1 $ slow 28 tri)
         # fade 0.2
         # red (scale 0 1 $ slow 23.133 sine)
         # green (scale 0 1 $ slow 24.471 sine)
