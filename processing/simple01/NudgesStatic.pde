@@ -1,18 +1,18 @@
-public class Nudges extends Scene {
+public class NudgesStatic extends Scene {
 
   int rows = 15;
   int cols = 15;
-  float floor = 230;
+  float floor = 200;
   ArrayList<Nudge> units = new ArrayList<Nudge>();
   ArrayList<Nudge> deads = new ArrayList<Nudge>();
   float extents = 200;
   boolean resetCam;
 
-  Nudges() {
+  NudgesStatic() {
   }
 
   String getName() {
-    return "nudges";
+    return "nudgesStatic";
   }
 
   void init(String lastScene) {
@@ -42,6 +42,7 @@ public class Nudges extends Scene {
     unit.initRotateY = random(-PI, PI)*a*0.5;
     unit.rotation = b * 0.01;
     unit.growth = c * 1.5;
+    unit.shapeWidth = width/4;
 
     unit.unitColor = color(data.oscRed * 255, data.oscGreen*255, data.oscBlue*255);
 
@@ -97,67 +98,5 @@ public class Nudges extends Scene {
     }
 
     deads.clear();
-  }
-}
-
-public class Nudge {
-
-  public PVector pos;
-  public PVector vel;
-  public PVector accel;
-  public color unitColor;
-  public float fadeRate = 0.5;
-  public float opacity = 255;
-  public float shapeWidth = width/3; // 200;
-  public float shapeDepth = 5;
-  public float shapeHeight = 5;
-  public float initRotateY = 0;
-  public float rotateY = 0;
-  public float rotateZ = 0;
-  public float rotateX = 0;
-  public float rotation = 0;
-  public float growth = 0;
-  public boolean dead;
-  public boolean high;
-
-  public void draw() {
-    if (vel == null || accel == null || pos == null) return;
-
-    fill(unitColor, opacity);
-    strokeWeight(0);
-    translate(pos.x, pos.y, pos.z);
-    rotateY(initRotateY + rotateY);
-    rotateX(rotateX);
-    rotateZ(rotateZ);
-    box(shapeWidth, shapeHeight, shapeDepth);
-    rotateZ(-rotateZ);
-    rotateX(-rotateX);
-    rotateY(-initRotateY - rotateY);
-    translate(-pos.x, -pos.y, -pos.z);
-  }
-
-  public void update() {
-    if (vel == null || accel == null || pos == null) return;
-
-    rotateY += rotation;
-    rotateX += rotation;
-    rotateZ += rotation;
-
-    shapeDepth += growth;
-    shapeWidth += growth;
-
-    vel.x += accel.x;
-    vel.y += accel.y;
-    vel.z += accel.z;
-    pos.x += vel.x;
-    pos.y += vel.y;
-    pos.z += vel.z;
-    if (opacity > 0.1) {
-      opacity -= (1-fadeRate)*2.5;
-    }
-
-    if (opacity <= 0.05) {
-      dead = true;
-    }
   }
 }

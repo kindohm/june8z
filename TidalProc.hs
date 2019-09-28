@@ -37,7 +37,7 @@ module TidalProc where
   dest2 = "192.168.0.100"
 
   procStream = do
-      s <- makeConnection dest2 port procSlang
+      s <- makeConnection dest1 port procSlang
       stream (Backend s $ (\_ _ _ -> return ())) procShape
 
 --  procStream = do

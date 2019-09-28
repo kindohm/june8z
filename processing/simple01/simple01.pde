@@ -9,7 +9,7 @@ ArrayList<Scene> scenesList = new ArrayList<Scene>();
 Scene currentScene;
 Scene lastScene;
 int sceneIndex = 0;
-String sceneName = "logs";
+String sceneName = "nodes";
 float currentMouseWheelCount;
 OscP5 oscP5;
 NetAddress myRemoteLocation;
@@ -17,8 +17,9 @@ PeasyCam cam;
 float oscA, oscB, oscC, oscD, oscE, oscRed, oscGreen, oscBlue, oscHit, oscFade;
 
 void setup() {
-  fullScreen(P3D);
-  // size(960, 800, P3D);
+  //fullScreen(P3D);
+  size(800, 500, P3D);
+  // size(2560,1440, P3D);
 
   cam = new PeasyCam(this, 0, 0, 0, 500);
 
@@ -45,7 +46,9 @@ void setup() {
   //scenesList.add(new Carpet());
   //scenesList.add(new CarpetB());
   scenesList.add(new Nudges());
+  scenesList.add(new NudgesStatic());
   scenesList.add(new Logs());
+  scenesList.add(new LogsStatic());
 
   for (int i = 0; i < scenesList.size(); i++) {
     scenesHash.put(scenesList.get(i).getName(), scenesList.get(i));
@@ -108,6 +111,8 @@ void mouseDragged(){
   doHit();
 }
 
+int x;
+
 void keyPressed() {
   if (key == CODED) {
     if (keyCode == RIGHT) {
@@ -124,7 +129,10 @@ void keyPressed() {
       sceneName = currentScene.getName();
     }
   } else {
-    if (key == ' ') {
+    if (key == 32){
+      x++;
+      saveFrame("generic-" + year() + month() + day() + hour() + minute() + second() + millis() + ".png");
+    } else if (key == ' ') {
       doHit();
     }
   }

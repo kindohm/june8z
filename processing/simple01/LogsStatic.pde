@@ -1,5 +1,5 @@
 
-public class Logs extends Scene {
+public class LogsStatic extends Scene {
 
   boolean resetCam;
   int minCols = 3;
@@ -12,11 +12,12 @@ public class Logs extends Scene {
   int col = 0;
   float depth = 2000;
   Log[][] logs;
-  float bigSizeX = 1600;
-  float bigSizeZ = 800;
+  float bigSizeX = 3000;
+  float bigSizeZ = 1600;
+  int x = 0;
 
   String getName() {
-    return "logs";
+    return "logsStatic";
   }
 
   void reset() {
@@ -77,7 +78,7 @@ public class Logs extends Scene {
     newLog.vel = new PVector(0, c*map(random(0, 1), 0, 1, 0, 0.5), 0);
     newLog.sizeX = bigSizeX/cols;
     newLog.sizeZ = bigSizeZ/rows;
-    newLog.rotateYRate = map(d,0,1,0,0.001);
+    newLog.rotateYRate = map(d, 0, 1, 0, 0.001);
 
     logs[col][row] = newLog;
 
@@ -85,8 +86,8 @@ public class Logs extends Scene {
   }
 
   void doRotation() {
-    cam.rotateY(-0.00005);
-    cam.rotateX(-0.00001);
+    //cam.rotateY(-0.00005);
+    //cam.rotateX(-0.00001);
   }
 
   void draw3d() {
@@ -97,8 +98,9 @@ public class Logs extends Scene {
 
     doRotation();
 
-    ambientLight(155, 155, 155);
-    directionalLight(155, 155, 155, -0.1,0.3,-0.7);
+    ambientLight(50, 55, 55);
+    directionalLight(255, 255, 255, -0.1, 0.3, -0.7);
+    //directionalLight(255, 255, 255, 0.1, -0.3, 0.3);
 
     Log log;
 
@@ -112,20 +114,20 @@ public class Logs extends Scene {
     //strokeWeight(5);
     noStroke();
 
-    rotateX(-1);
-    rotateY(0.5);
-    rotateZ(0.6);
+    //rotateX(-1);
+    //rotateY(0.5);
+    //rotateZ(0.6);
     for (int c = 0; c < logs.length; c++) {
       for (int r = 0; r < logs[c].length; r++) {
         log = logs[c][r];
         if (log == null) continue;
 
         fill(color(log.red, log.green, log.blue));
-        translate(log.pos.x * log.sizeX - halfCols/3, depth/2 - log.pos.y, log.pos.z* log.sizeZ - halfRows);
+        translate(log.pos.x * log.sizeX - halfCols/2, depth/2 - log.pos.y, log.pos.z* log.sizeZ - halfRows);
         rotateY(log.rotateY);
         box(log.sizeX, depth, log.sizeZ);
         rotateY(-log.rotateY);
-        translate(-log.pos.x * log.sizeX + halfCols/3, -depth/2 + log.pos.y, -log.pos.z * log.sizeZ + halfRows);
+        translate(-log.pos.x * log.sizeX + halfCols/2, -depth/2 + log.pos.y, -log.pos.z * log.sizeZ + halfRows);
 
         log.pos.y += log.vel.y;
         log.rotateY += log.rotateYRate;
@@ -135,22 +137,14 @@ public class Logs extends Scene {
         //log.blue *= rate;
       }
     }
-    rotateZ(-0.6);
-    rotateY(-0.5);
-    rotateX(1);
-  }
-}
+    //rotateZ(-0.6);
+    //rotateY(-0.5);
+    //rotateX(1);
 
-public class Log {
-  public PVector pos;
-  public PVector vel;
-  public float sizeX;
-  public float sizeZ;
-  //public float opacity = 255;
-  //public float fadeRate = 0;
-  public float rotateY;
-  public float rotateYRate;
-  public float red;
-  public float green;
-  public float blue;
+
+    if (logs[cols-1] != null && logs[cols-1][rows-1] != null) {
+      x++;
+      saveFrame("logsStatic-" + year() + month() + day() + hour() + minute() + second() + millis() + ".png");
+    }
+  }
 }
